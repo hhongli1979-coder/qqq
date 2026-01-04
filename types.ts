@@ -4,23 +4,26 @@ export interface Message {
   content: string;
 }
 
-export type CompilerStatus = 'IDLE' | 'CONFIGURING' | 'COMPILING' | 'DEPLOYING' | 'READY';
+export type CompilerStatus = 'IDLE' | 'CONFIGURING' | 'COMPILING' | 'DEPLOYING' | 'READY' | 'SYNCING';
 
 export enum SectionId {
   Home = '01',
-  Model = '02',
+  CloudSync = '02',
   Compiler = '03',
-  Automation = '04',
-  Editor = '05',
-  Feedback = '06',
-  Sectors = '07',
-  Workflow = '08',
-  Craftsmanship = '09'
+  ExtensionGen = '04',
+  Automation = '05',
+  VisualPortal = '06',
+  Feedback = '07',
+  Sectors = '08',
+  Workflow = '09',
+  Craftsmanship = '10',
+  Editor = '11',
+  Admin = '12'
 }
 
-export interface CompilationResult {
-  code?: string;
-  videoUrl?: string;
-  arModelStatus?: string;
-  deploymentUrl?: string;
+export interface CloudConnection {
+  github: boolean;
+  drive: boolean;
+  database: boolean;
+  colab: boolean;
 }
