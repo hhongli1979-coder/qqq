@@ -3,39 +3,49 @@ import React from 'react';
 import { SectionId } from '../types';
 
 const steps = [
-  { id: '01', title: '环境与项目初始化', detail: '自动化配置 Next.js 15 + Tailwind 架构，确保 100% 性能跑分。' },
-  { id: '02', title: 'LLM API 节点选择', detail: '智能匹配任务最优节点 (Gemini 2.5/3 Pro)，实现逻辑精准表达。' },
-  { id: '03', title: '提示到组件的生成', detail: '核心环节：将自然语言意图（如 AR 试衣）转码为生产级组件。' },
-  { id: '04', title: 'Vercel Automation', detail: '深度集成 CI/CD，实现代码自动化推送与全球 Edge 网络部署。' },
-  { id: '05', title: '编辑器与门户界面', detail: '为非技术人员提供可视化调整界面，实现所见即所得的 AI 协同。' },
-  { id: '06', title: '优化与反馈循环', detail: '基于真实用户数据自动重构代码与 Prompt，系统持续自我进化。' }
+  { id: '01', title: '环境与项目初始化', detail: '基于 Cloud Build 自动配置全栈基础架构，锁定高性能运行时环境。', icon: '🛠️' },
+  { id: '02', title: 'LLM API 节点选择', detail: '智能匹配 Gemini 2.5/3 Pro 核心节点，确保复杂业务逻辑的精准表达。', icon: '🧠' },
+  { id: '03', title: '提示到组件的生成', detail: '核心转码：将自然语言意图直接编译为 React 生产级组件。', icon: '✨' },
+  { id: '04', title: 'Vercel Automation', detail: '集成 CI/CD 流水线，实现代码自动化推送与 Edge 边缘网络全球加速。', icon: '🚀' },
+  { id: '05', title: '编辑器与门户界面', detail: '为非技术人员提供可视化控制台，实现 AI 生成内容的手动微调。', icon: '🖥️' },
+  { id: '06', title: '优化与反馈循环', detail: '基于用户交互数据，自动重构 Prompt 与逻辑层，实现系统的自我进化。', icon: '🔄' }
 ];
 
 const About: React.FC = () => {
   return (
-    <section id={SectionId.Workflow} className="py-24 bg-aurae-secondary">
+    <section id={SectionId.Workflow} className="py-32 bg-[#131314]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-16">
-          <div className="lg:w-1/3">
-            <h2 className="text-3xl font-medium text-aurae-light mb-6">六步实施计划</h2>
-            <p className="text-aurae-muted text-lg font-light leading-relaxed mb-8">
-              moda AI Studio 遵循严密的工程学逻辑。我们不只是在生成代码，我们是在为您构建一整套自动化的数字工厂。
+        <div className="flex flex-col lg:flex-row gap-24 items-start">
+          <div className="lg:w-[400px] shrink-0 lg:sticky lg:top-32">
+            <span className="text-google-accent text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block">The Process</span>
+            <h2 className="text-4xl font-medium text-white mb-8">六步实施计划</h2>
+            <p className="text-google-textMuted text-lg font-light leading-relaxed mb-10">
+              moda AI Studio 遵循严密的工程学逻辑。我们不只是在生成代码，我们是在为您构建一整套自动化的“数字工厂”。
             </p>
-            <div className="p-6 bg-aurae-primary border border-aurae-border rounded-xl">
-               <p className="text-xs text-aurae-muted font-mono mb-2 uppercase">Compiler Status</p>
-               <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-aurae-success"></div>
-                  <span className="text-sm font-bold text-aurae-success">Production Ready</span>
+            <div className="p-8 bg-google-surface border border-google-border rounded-3xl shadow-xl">
+               <div className="flex items-center justify-between mb-4">
+                 <p className="text-[10px] text-google-textMuted font-mono uppercase tracking-widest">Compiler Pipeline</p>
+                 <span className="text-[10px] text-google-success font-bold">STABLE</span>
+               </div>
+               <div className="flex items-center gap-4">
+                  <div className="flex -space-x-3">
+                    <div className="w-8 h-8 rounded-full border-2 border-google-surface bg-google-accent flex items-center justify-center text-[10px] font-bold text-google-bg">G</div>
+                    <div className="w-8 h-8 rounded-full border-2 border-google-surface bg-google-success flex items-center justify-center text-[10px] font-bold text-google-bg">V</div>
+                  </div>
+                  <span className="text-xs font-medium text-white">Full Stack Alignment</span>
                </div>
             </div>
           </div>
           
-          <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8">
             {steps.map((step) => (
-              <div key={step.id} className="p-6 bg-aurae-primary border border-aurae-border rounded-xl hover:bg-white/5 transition-colors">
-                <div className="text-aurae-accent font-mono text-sm mb-4">STEP_{step.id}</div>
-                <h3 className="text-lg font-medium text-aurae-light mb-3">{step.title}</h3>
-                <p className="text-aurae-muted text-sm font-light leading-relaxed">{step.detail}</p>
+              <div key={step.id} className="p-8 bg-google-surface border border-google-border rounded-[2.5rem] hover:bg-google-surfaceLight transition-all group">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="text-google-accent font-mono text-xs font-bold tracking-tighter bg-google-accent/10 px-3 py-1 rounded-full">STEP_{step.id}</div>
+                  <div className="text-2xl grayscale group-hover:grayscale-0 transition-all">{step.icon}</div>
+                </div>
+                <h3 className="text-xl font-medium text-white mb-4 group-hover:text-google-accent transition-colors">{step.title}</h3>
+                <p className="text-google-textMuted text-sm font-light leading-relaxed">{step.detail}</p>
               </div>
             ))}
           </div>

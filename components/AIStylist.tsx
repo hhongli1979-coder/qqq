@@ -1,100 +1,83 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { SectionId, Message } from '../types';
-// 修正导入名称
-import { getCompilerResponse } from '../services/geminiService';
+import { Message } from '../types';
 
-const SmartCompiler: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "系统就绪。我是 moda AI 智能编译器架构师。请输入您的开发需求（例如：'生成一个具有 AR 换衣功能的服装电商页面'）。" }
-  ]);
+interface SmartCompilerProps {
+  messages: Message[];
+  isProcessing: boolean;
+  onSendMessage: (content: string) => void;
+}
+
+const SmartCompiler: React.FC<SmartCompilerProps> = ({ messages, isProcessing, onSendMessage }) => {
   const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  }, [messages, isTyping]);
+  }, [messages, isProcessing]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isTyping) return;
-    const userMessage: Message = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
+    if (!input.trim() || isProcessing) return;
+    onSendMessage(input);
     setInput('');
-    setIsTyping(true);
-    // 修正函数调用为 getCompilerResponse
-    const responseText = await getCompilerResponse(messages, input);
-    setMessages(prev => [...prev, { role: 'assistant', content: responseText }]);
-    setIsTyping(false);
   };
 
   return (
-    <section id={SectionId.Compiler} className="py-24 bg-aurae-primary">
-      <div className="max-w-5xl mx-auto px-6">
-        <header className="mb-12 text-center">
-          <span className="text-aurae-accent text-[10px] font-bold uppercase tracking-widest mb-4 block">Step 03: 智能生成</span>
-          <h2 className="text-3xl font-medium text-aurae-light">与编译器对话</h2>
-        </header>
-
-        <div className="code-window flex flex-col h-[650px]">
-          {/* Header */}
-          <div className="h-12 bg-aurae-secondary border-b border-aurae-border flex items-center justify-between px-6">
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-aurae-success"></div>
-              <span className="text-xs font-medium text-aurae-muted uppercase tracking-wider">Session Active: Gemini-3-Pro</span>
-            </div>
-            <div className="flex gap-2">
-               <span className="text-[10px] font-mono text-aurae-accent bg-aurae-accent/10 px-2 py-0.5 rounded">MODA_V2.8</span>
-            </div>
-          </div>
-
-          {/* Console Output */}
-          <div className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar font-sans" ref={scrollRef}>
-            {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] p-5 rounded-lg ${
-                  msg.role === 'user' 
-                    ? 'bg-aurae-accent text-aurae-primary font-bold' 
-                    : 'bg-aurae-secondary border border-aurae-border text-aurae-light'
-                }`}>
-                  <p className="whitespace-pre-wrap text-[14px] leading-relaxed">{msg.content}</p>
-                </div>
-              </div>
-            ))}
-            {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-aurae-secondary p-5 rounded-lg border border-aurae-border flex gap-2">
-                  <div className="w-1.5 h-1.5 bg-aurae-accent rounded-full animate-bounce"></div>
-                  <div className="w-1.5 h-1.5 bg-aurae-accent rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                  <div className="w-1.5 h-1.5 bg-aurae-accent rounded-full animate-bounce [animation-delay:0.4s]"></div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Prompt Input */}
-          <form onSubmit={handleSubmit} className="p-6 bg-aurae-secondary border-t border-aurae-border">
-            <div className="relative flex items-center bg-aurae-primary border border-aurae-border rounded-lg px-4 focus-within:border-aurae-accent transition-all">
-              <input 
-                type="text" 
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="描述您的应用蓝图..."
-                className="flex-1 bg-transparent py-4 text-sm focus:outline-none text-aurae-light font-light"
-              />
-              <button 
-                type="submit"
-                disabled={isTyping}
-                className="px-6 py-2 bg-aurae-accent text-aurae-primary rounded-md font-bold text-xs uppercase hover:bg-blue-300 transition-all disabled:opacity-30"
-              >
-                编译运行
-              </button>
-            </div>
-          </form>
+    <div className="flex flex-col h-full bg-google-bg animate-in fade-in duration-700">
+      <header className="p-8 border-b border-google-border flex justify-between items-center bg-black/20 backdrop-blur-md">
+        <div>
+          <h2 className="text-3xl font-black italic uppercase tracking-tighter text-white">Neural Compiler</h2>
+          <p className="text-[11px] text-google-textMuted font-mono mt-2 tracking-[0.3em] uppercase italic">Internal_Node_Sync: Active</p>
         </div>
+        <div className="px-5 py-2.5 bg-google-success/10 border border-google-success/20 rounded-2xl text-[10px] font-black text-google-success uppercase tracking-[0.3em] flex items-center gap-3">
+           <span className="w-1.5 h-1.5 bg-google-success rounded-full animate-ping"></span>
+           Compiler_Live
+        </div>
+      </header>
+
+      <div className="flex-1 overflow-y-auto studio-scroll p-8 space-y-8" ref={scrollRef}>
+        {messages.map((msg, i) => (
+          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[85%] p-8 rounded-[2.5rem] shadow-2xl transition-all ${
+              msg.role === 'user' 
+                ? 'bg-google-success text-google-bg font-black italic' 
+                : 'bg-google-surface border border-google-border text-white leading-relaxed'
+            }`}>
+              <p className="whitespace-pre-wrap text-[15px]">{msg.content}</p>
+            </div>
+          </div>
+        ))}
+        {isProcessing && (
+          <div className="flex justify-start">
+            <div className="bg-google-bg border border-google-border px-8 py-4 rounded-full flex gap-4 items-center">
+              <div className="w-2 h-2 bg-google-success rounded-full animate-ping"></div>
+              <span className="text-[11px] font-mono text-google-success uppercase font-black tracking-widest">Compiler Computing Logic...</span>
+            </div>
+          </div>
+        )}
       </div>
-    </section>
+
+      <form onSubmit={handleSubmit} className="p-8 border-t border-google-border bg-google-bg/80 backdrop-blur-xl">
+        <div className="relative flex items-center bg-google-surface border border-google-border rounded-[2.5rem] px-8 py-2 focus-within:border-google-success transition-all group shadow-2xl max-w-5xl mx-auto w-full">
+          <input 
+            type="text" 
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={isProcessing}
+            placeholder="描述您的应用蓝图 (例如: 重构登陆页逻辑)..."
+            className="flex-1 bg-transparent py-6 text-sm focus:outline-none text-white font-light placeholder:text-google-textMuted disabled:opacity-50"
+          />
+          <button 
+            type="submit"
+            disabled={!input.trim() || isProcessing}
+            className="px-10 py-4 bg-google-success text-google-bg rounded-[1.2rem] font-black text-xs uppercase tracking-widest hover:scale-95 transition-all disabled:opacity-30 shadow-xl"
+          >
+            {isProcessing ? '编译中...' : '运行编译 ▶'}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

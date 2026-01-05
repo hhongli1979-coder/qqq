@@ -9,13 +9,7 @@ export interface User {
   email: string | null;
   displayName: string | null;
   photoURL: string | null;
-}
-
-export interface ServiceAccount {
-  projectId: string;
-  clientEmail: string;
-  clientId: string;
-  privateKeyId: string;
+  username?: string;
 }
 
 export type CompilerStatus = 'IDLE' | 'CONFIGURING' | 'COMPILING' | 'DEPLOYING' | 'READY' | 'SYNCING';
@@ -28,31 +22,36 @@ export enum SectionId {
   Automation = '05',
   VisualPortal = '06',
   Feedback = '07',
-  Sectors = '08',
-  Workflow = '09',
-  Craftsmanship = '10',
-  Editor = '11',
-  Admin = '12'
+  Admin = '12',
+  Sectors = 'sectors',
+  Workflow = 'workflow',
+  Craftsmanship = 'craftsmanship',
+  Editor = 'editor'
+}
+
+export interface PrivateNode {
+  id: string;
+  name: string;
+  ip: string;
+  status: 'ONLINE' | 'OFFLINE' | 'BUSY' | 'ERROR';
+  load: number;
+  type: 'LOGIC' | 'RENDER' | 'DATA' | 'VIDEO' | 'GATEWAY';
 }
 
 export interface Asset {
   id: string;
   name: string;
   type: string;
-  mode: 'FOR_SALE' | 'RENTAL' | 'OPEN_SOURCE';
-  price: string;
-  status: 'ACTIVE' | 'ARCHIVED' | 'PENDING';
-  revenue: string;
-  revenueValue: number;
-  endpointId?: string; // Vertex AI Endpoint ID
-  deployedUrl?: string; // Vercel/Firebase Hosting URL
-  licenseKey?: string; // For FOR_SALE mode
+  status: 'ACTIVE' | 'PENDING' | 'ARCHIVED';
+  revenue: number;
+  monetizationModel: 'Subscription' | 'One-time' | 'Ads' | 'Free';
+  icon: string;
 }
 
-export interface CloudConnection {
-  github: boolean;
-  drive: boolean;
-  database: boolean;
-  colab: boolean;
-  adminSdk: boolean;
+export interface MemoryNode {
+  id: string;
+  title: string;
+  content: string;
+  category: 'PREFERENCE' | 'ARCHITECTURE' | 'LOGIC';
+  timestamp: string;
 }
