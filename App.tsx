@@ -21,6 +21,10 @@ import { Message, SectionId, CompilerStatus, User, Asset, PrivateNode } from './
 import { getCompilerResponseStream } from './services/geminiService';
 import { authService } from './services/persistenceService';
 
+// Fix: Use any-casted motion components to resolve environmental TypeScript conflicts with framer-motion props
+const MotionDiv = motion.div as any;
+const MotionMain = motion.main as any;
+
 // ==========================================
 // 1. 核心组件：品牌导航栏 (Brand Header)
 // ==========================================
@@ -50,7 +54,7 @@ const AIModaHeader = ({ memberId, onLoginClick, onReset }: any) => (
       </div>
 
       {memberId ? (
-        <motion.div 
+        <MotionDiv 
           initial={{ scale: 0.9 }} 
           animate={{ scale: 1 }} 
           className="flex items-center gap-2 px-3 py-1.5 bg-[#0A0A0A] border border-zinc-800 rounded-full"
@@ -58,7 +62,7 @@ const AIModaHeader = ({ memberId, onLoginClick, onReset }: any) => (
           <ShieldCheck size={14} className="text-indigo-400" />
           <span className="text-xs font-bold text-zinc-200 tracking-wider uppercase">{memberId}</span>
           <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full ml-1"></span>
-        </motion.div>
+        </MotionDiv>
       ) : (
         <button 
           onClick={onLoginClick}
@@ -99,11 +103,11 @@ const AccessTerminal = ({ onSuccess, onClose }: any) => {
   };
 
   return (
-    <motion.div 
+    <MotionDiv 
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
     >
-      <motion.div 
+      <MotionDiv 
         initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
         className="w-full max-w-md bg-[#0a0a0a] border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl relative"
       >
@@ -119,10 +123,10 @@ const AccessTerminal = ({ onSuccess, onClose }: any) => {
         <div className="p-8 relative">
           <div className="flex justify-center mb-8">
             <AnimatePresence mode='wait'>
-              {status === 'locked' && <motion.div key="l" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-4 bg-zinc-900 rounded-full text-zinc-500"><Lock size={32} /></motion.div>}
-              {status === 'verifying' && <motion.div key="v" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-4 bg-indigo-900/20 rounded-full text-indigo-500"><Loader2 size={32} className="animate-spin" /></motion.div>}
-              {status === 'granted' && <motion.div key="g" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-4 bg-emerald-900/20 rounded-full text-emerald-500"><Unlock size={32} /></motion.div>}
-              {status === 'denied' && <motion.div key="d" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-4 bg-red-900/20 rounded-full text-red-500"><X size={32} /></motion.div>}
+              {status === 'locked' && <MotionDiv key="l" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-4 bg-zinc-900 rounded-full text-zinc-500"><Lock size={32} /></MotionDiv>}
+              {status === 'verifying' && <MotionDiv key="v" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-4 bg-indigo-900/20 rounded-full text-indigo-500"><Loader2 size={32} className="animate-spin" /></MotionDiv>}
+              {status === 'granted' && <MotionDiv key="g" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-4 bg-emerald-900/20 rounded-full text-emerald-500"><Unlock size={32} /></MotionDiv>}
+              {status === 'denied' && <MotionDiv key="d" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-4 bg-red-900/20 rounded-full text-red-500"><X size={32} /></MotionDiv>}
             </AnimatePresence>
           </div>
 
@@ -152,8 +156,8 @@ const AccessTerminal = ({ onSuccess, onClose }: any) => {
             <X size={16} />
           </button>
         </div>
-      </motion.div>
-    </motion.div>
+      </MotionDiv>
+    </MotionDiv>
   );
 };
 
@@ -161,7 +165,7 @@ const AccessTerminal = ({ onSuccess, onClose }: any) => {
 // 3. 核心组件：功能卡片 (Feature Card)
 // ==========================================
 const FeatureCard = ({ title, subtitle, icon: Icon, delay, onClick, image, isLocked }: any) => (
-  <motion.div 
+  <MotionDiv 
     initial={{ opacity: 0, y: 50 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay, duration: 0.8 }}
@@ -198,7 +202,7 @@ const FeatureCard = ({ title, subtitle, icon: Icon, delay, onClick, image, isLoc
         </div>
       )}
     </div>
-  </motion.div>
+  </MotionDiv>
 );
 
 const INITIAL_NODES: PrivateNode[] = [
@@ -210,7 +214,7 @@ const INITIAL_NODES: PrivateNode[] = [
 ];
 
 const INITIAL_ASSETS: Asset[] = [
-  { id: 'MODA_HANFU_V4', name: '汉服专项精调权重 (v4)', type: 'Vertex Fine-tuned', icon: '👘', status: 'PENDING', revenue: 12400, monetizationModel: 'One-time' },
+  { id: 'MODA_HANFU_V4', name: '汉服专项精调权重 (v4)', type: 'Vertex Fine-tuned', icon: '👘', status: 'ACTIVE', revenue: 12400, monetizationModel: 'One-time' },
   { id: 'BRAIN_KERNEL_X', name: '智算大脑核心内核', type: 'LLM Kernel', icon: '🧠', status: 'ACTIVE', revenue: 85000, monetizationModel: 'Subscription' },
   { id: 'VEO_4K_RENDERER', name: 'Veo 4K 商业渲染器', type: 'Video Generator', icon: '🎬', status: 'ACTIVE', revenue: 32000, monetizationModel: 'Subscription' },
   { id: 'MODA_COMP_BENTO', name: 'Bento UI 自动生成组件', type: 'Component', icon: '🍱', status: 'ACTIVE', revenue: 5600, monetizationModel: 'One-time' },
@@ -331,7 +335,7 @@ const App: React.FC = () => {
           )}
         </AnimatePresence>
 
-        <motion.main 
+        <MotionMain 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1 }} 
           className="pb-20 pt-48"
@@ -383,7 +387,7 @@ const App: React.FC = () => {
           </div>
 
           <Footer />
-        </motion.main>
+        </MotionMain>
       </div>
     );
   }
