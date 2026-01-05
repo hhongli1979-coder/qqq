@@ -5,9 +5,10 @@ import { CompilerStatus, PrivateNode } from '../types';
 interface RightPanelProps { 
   status: CompilerStatus; 
   nodes: PrivateNode[];
+  onNodeControl: (id: string, action: 'RESTART' | 'TOGGLE') => void;
 }
 
-const RightPanel: React.FC<RightPanelProps> = ({ status, nodes }) => {
+const RightPanel: React.FC<RightPanelProps> = ({ status, nodes, onNodeControl }) => {
   const avgLoad = Math.round(nodes.reduce((acc, node) => acc + node.load, 0) / nodes.length);
   const onlineCount = nodes.filter(n => n.status === 'ONLINE').length;
 
@@ -19,7 +20,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ status, nodes }) => {
         <div className="space-y-4">
           <div className="p-5 bg-google-surface border border-google-border rounded-2xl group hover:border-google-success transition-all duration-500">
              <div className="flex justify-between items-center mb-4">
-                <span className="text-[10px] font-black uppercase text-white tracking-widest">Nodes Active</span>
+                <span className="text-[10px] font-black uppercase text-white tracking-widest">Compute Fleet</span>
                 <div className={`w-2 h-2 rounded-full ${onlineCount === nodes.length ? 'bg-google-success' : 'bg-red-500'} shadow-[0_0_8px_currentColor]`}></div>
              </div>
              <div className="flex items-end justify-between">
@@ -28,6 +29,35 @@ const RightPanel: React.FC<RightPanelProps> = ({ status, nodes }) => {
                   <p className="text-[10px] text-google-textMuted">/ {nodes.length}</p>
                 </div>
                 <p className="text-[10px] font-black text-google-success uppercase tracking-widest">Healthy</p>
+             </div>
+
+             {/* Node Management List */}
+             <div className="mt-8 space-y-3 pt-4 border-t border-google-border/20">
+                {nodes.map(node => (
+                  <div key={node.id} className="p-3 bg-google-bg/50 border border-google-border rounded-xl group/node">
+                    <div className="flex justify-between items-center">
+                       <div className="flex items-center gap-2">
+                          <div className={`w-1.5 h-1.5 rounded-full ${node.status === 'ONLINE' ? 'bg-google-success' : node.status === 'BUSY' ? 'bg-google-accent animate-pulse' : 'bg-red-500'}`}></div>
+                          <span className="text-[9px] font-bold text-google-text uppercase tracking-tighter truncate max-w-[100px]">{node.name}</span>
+                       </div>
+                       <span className="text-[8px] font-mono text-google-textMuted">{Math.round(node.load)}%</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 mt-3 opacity-0 group-hover/node:opacity-100 transition-opacity">
+                       <button 
+                        onClick={() => onNodeControl(node.id, 'RESTART')}
+                        className="bg-google-surfaceLight border border-google-border py-1 rounded text-[8px] font-black uppercase text-zinc-400 hover:text-google-accent hover:border-google-accent transition-all"
+                       >
+                         Restart
+                       </button>
+                       <button 
+                        onClick={() => onNodeControl(node.id, 'TOGGLE')}
+                        className={`bg-google-surfaceLight border border-google-border py-1 rounded text-[8px] font-black uppercase transition-all ${node.status === 'ONLINE' ? 'text-red-400 hover:bg-red-500/10 hover:border-red-500' : 'text-google-success hover:bg-google-success/10 hover:border-google-success'}`}
+                       >
+                         {node.status === 'ONLINE' ? 'Shut Down' : 'Power On'}
+                       </button>
+                    </div>
+                  </div>
+                ))}
              </div>
           </div>
 
@@ -65,7 +95,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ status, nodes }) => {
       </div>
 
       <div className="mt-auto pt-10 border-t border-google-border">
-        <div className="p-6 bg-google-success/5 border border-google-success/20 rounded-3xl relative overflow-hidden group">
+        <div className="p-6 bg-google-success/5 border border-google-border rounded-3xl relative overflow-hidden group">
            <div className="absolute -right-4 -bottom-4 text-5xl opacity-5 grayscale group-hover:scale-110 transition-transform duration-500">🛡️</div>
            <p className="text-[10px] font-black text-google-success uppercase mb-6 tracking-[0.3em]">Privacy Strength</p>
            <div className="flex items-baseline gap-2 mb-4">
