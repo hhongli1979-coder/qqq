@@ -13,8 +13,11 @@ const steps = [
 
 const About: React.FC = () => {
   return (
-    <section id={SectionId.Workflow} className="py-32 bg-[#131314]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id={SectionId.Workflow} className="py-32 bg-[#131314] relative overflow-hidden">
+      {/* Ambient background light */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-google-success/5 blur-[150px] rounded-full pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-24 items-start">
           <div className="lg:w-[400px] shrink-0 lg:sticky lg:top-32">
             <span className="text-google-accent text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block">The Process</span>
@@ -22,30 +25,30 @@ const About: React.FC = () => {
             <p className="text-google-textMuted text-lg font-light leading-relaxed mb-10">
               moda AI Studio 遵循严密的工程学逻辑。我们不只是在生成代码，我们是在为您构建一整套自动化的“数字工厂”。
             </p>
-            <div className="p-8 bg-google-surface border border-google-border rounded-3xl shadow-xl">
+            <div className="p-8 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl">
                <div className="flex items-center justify-between mb-4">
-                 <p className="text-[10px] text-google-textMuted font-mono uppercase tracking-widest">Compiler Pipeline</p>
+                 <p className="text-[10px] text-white/40 font-mono uppercase tracking-widest">Compiler Pipeline</p>
                  <span className="text-[10px] text-google-success font-bold">STABLE</span>
                </div>
                <div className="flex items-center gap-4">
                   <div className="flex -space-x-3">
-                    <div className="w-8 h-8 rounded-full border-2 border-google-surface bg-google-accent flex items-center justify-center text-[10px] font-bold text-google-bg">G</div>
-                    <div className="w-8 h-8 rounded-full border-2 border-google-surface bg-google-success flex items-center justify-center text-[10px] font-bold text-google-bg">V</div>
+                    <div className="w-8 h-8 rounded-full border-2 border-black bg-google-accent flex items-center justify-center text-[10px] font-bold text-google-bg">G</div>
+                    <div className="w-8 h-8 rounded-full border-2 border-black bg-google-success flex items-center justify-center text-[10px] font-bold text-google-bg">V</div>
                   </div>
-                  <span className="text-xs font-medium text-white">Full Stack Alignment</span>
+                  <span className="text-xs font-medium text-white/80">Full Stack Alignment</span>
                </div>
             </div>
           </div>
           
           <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8">
             {steps.map((step) => (
-              <div key={step.id} className="p-8 bg-google-surface border border-google-border rounded-[2.5rem] hover:bg-google-surfaceLight transition-all group">
+              <div key={step.id} className="p-8 bg-white/[0.02] backdrop-blur-md border border-white/5 rounded-[2.5rem] hover:bg-white/[0.06] hover:border-white/20 transition-all duration-500 group">
                 <div className="flex items-center justify-between mb-6">
-                  <div className="text-google-accent font-mono text-xs font-bold tracking-tighter bg-google-accent/10 px-3 py-1 rounded-full">STEP_{step.id}</div>
-                  <div className="text-2xl grayscale group-hover:grayscale-0 transition-all">{step.icon}</div>
+                  <div className="text-google-accent font-mono text-[10px] font-black tracking-widest bg-google-accent/10 px-3 py-1.5 rounded-full border border-google-accent/20 italic">STEP_{step.id}</div>
+                  <div className="text-2xl grayscale group-hover:grayscale-0 group-hover:scale-125 transition-all duration-500">{step.icon}</div>
                 </div>
-                <h3 className="text-xl font-medium text-white mb-4 group-hover:text-google-accent transition-colors">{step.title}</h3>
-                <p className="text-google-textMuted text-sm font-light leading-relaxed">{step.detail}</p>
+                <h3 className="text-xl font-black italic text-white mb-4 group-hover:text-google-accent transition-colors uppercase tracking-tighter">{step.title}</h3>
+                <p className="text-google-textMuted text-sm font-light leading-relaxed group-hover:text-google-text transition-colors">{step.detail}</p>
               </div>
             ))}
           </div>

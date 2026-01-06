@@ -15,18 +15,21 @@ export interface User {
 export type CompilerStatus = 'IDLE' | 'CONFIGURING' | 'COMPILING' | 'DEPLOYING' | 'READY' | 'SYNCING';
 
 export enum SectionId {
-  Home = '01',
-  CloudSync = '02',
-  Compiler = '03',
-  ExtensionGen = '04',
-  Automation = '05',
-  VisualPortal = '06',
-  Feedback = '07',
-  Admin = '12',
-  Sectors = 'sectors',
-  Workflow = 'workflow',
-  Craftsmanship = 'craftsmanship',
-  Editor = 'editor'
+  Dashboard = 'DASHBOARD',
+  MistBuilder = 'MIST_BUILDER',
+  AIMarket = 'AI_MARKET',
+  CreationLab = 'CREATION_LAB',
+  Newsroom = 'NEWSROOM',
+  Docs = 'DOCS',
+  Admin = 'ADMIN',
+  Preview = 'PREVIEW',
+  Cluster = 'CLUSTER',
+  Vault = 'VAULT',
+  BrandVault = 'BRAND_VAULT',
+  Sectors = 'SECTORS',
+  Workflow = 'WORKFLOW',
+  Craftsmanship = 'CRAFTSMANSHIP',
+  Editor = 'EDITOR'
 }
 
 export interface PrivateNode {
@@ -48,10 +51,43 @@ export interface Asset {
   icon: string;
 }
 
+export interface BrandPackage {
+  id: string;
+  name: string;
+  logo: string;
+  status: 'INSTALLED' | 'SYNCING' | 'PENDING' | 'UPDATE_AVAILABLE';
+  version: string;
+  lastSync: string;
+  dataWeight: string;
+  category: 'LUXURY' | 'STREETWEAR' | 'FAST_FASHION';
+}
+
+export type VendorType = 'AI_MODEL' | 'FACTORY' | 'LOGISTICS';
+
+export interface Vendor {
+  id: string;
+  name: string;
+  type: VendorType;
+  provider: string;
+  status: 'active' | 'inactive' | 'error';
+  latency: number;
+  apiKey: string;
+  endpoint: string;
+  costPerUnit: string;
+}
+
 export interface MemoryNode {
   id: string;
   title: string;
   content: string;
   category: 'PREFERENCE' | 'ARCHITECTURE' | 'LOGIC';
   timestamp: string;
+}
+
+export interface SpiderTask {
+  id: string;
+  target: string;
+  protocol: 'MEDIA' | 'FINANCE' | 'SYSTEM';
+  status: 'IDLE' | 'SCANNING' | 'EXTRACTING' | 'COMPLETE' | 'FAILED';
+  findings: number;
 }

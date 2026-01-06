@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { CompilerStatus, User } from '../types';
+import { Share2, Globe, Shield, LogOut, Command, CreditCard } from 'lucide-react';
 
 interface NavbarProps {
   status: CompilerStatus;
@@ -8,75 +9,93 @@ interface NavbarProps {
   user: User | null;
   onLogin: () => void;
   onLogout: () => void;
+  onShare: () => void;
+  hasApiKey: boolean;
+  onSelectKey: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ status, onBack, user, onLogin, onLogout }) => {
-  const isBrainActive = status === 'COMPILING' || status === 'READY' || status === 'SYNCING';
-
+const Navbar: React.FC<NavbarProps> = ({ status, onBack, user, onLogin, onLogout, onShare, hasApiKey, onSelectKey }) => {
   return (
-    <header className="h-16 border-b border-google-border flex items-center justify-between px-4 bg-google-bg z-20">
-      <div className="flex items-center gap-6">
-        <button onClick={onBack} className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded bg-google-success flex items-center justify-center shadow-[0_0_15px_rgba(129,201,149,0.3)]">
-            <span className="text-google-bg font-bold text-lg group-hover:scale-90 transition-transform">m</span>
+    <header className="h-24 border-b border-white/5 flex items-center justify-between px-12 bg-black z-50 shrink-0 select-none">
+      <div className="flex items-center gap-12">
+        <button onClick={onBack} className="flex items-center gap-5 group interactive">
+          <div className="w-12 h-12 rounded-[1.25rem] bg-white text-black flex items-center justify-center font-black text-2xl shadow-[0_0_40px_rgba(255,255,255,0.3)] group-hover:scale-95 transition-all">M</div>
+          <div className="flex flex-col items-start">
+            <span className="text-xl font-black tracking-tighter text-white leading-none uppercase italic">
+              MODA <span className="font-light text-white/30 italic">OS</span>
+            </span>
+            <span className="text-[9px] font-mono text-white/20 uppercase tracking-[0.5em] mt-2 italic">Session_Active</span>
           </div>
-          <span className="text-lg font-medium group-hover:text-google-success transition-colors tracking-tighter">
-            moda <span className="text-google-textMuted font-normal">Private Studio</span>
-          </span>
         </button>
         
-        <div className="h-6 w-[1px] bg-google-border mx-2"></div>
+        <div className="h-12 w-[1px] bg-white/10 hidden md:block"></div>
         
-        <div className="flex items-center gap-3 px-3 py-1.5 rounded-md bg-google-surface border border-google-border text-[10px] font-mono">
-          <span className="text-google-textMuted uppercase">Cluster:</span>
-          <span className="text-google-success flex items-center gap-2 font-bold">
-            INTERNAL_SERVER_5X
-            <div className={`w-1.5 h-1.5 rounded-full ${isBrainActive ? 'bg-google-success animate-pulse' : 'bg-red-500'}`}></div>
-          </span>
-        </div>
+        {/* Billing Status */}
+        <button 
+          onClick={onSelectKey}
+          className={`hidden lg:flex items-center gap-4 px-5 py-2 border rounded-2xl transition-all interactive ${
+            hasApiKey ? 'bg-google-success/5 border-google-success/20 text-google-success' : 'bg-red-500/5 border-red-500/20 text-red-400 animate-pulse'
+          }`}
+        >
+          <CreditCard size={14} />
+          <div className="flex flex-col items-start">
+            <span className="text-[9px] font-mono font-black uppercase tracking-widest italic leading-none">
+              {hasApiKey ? 'Direct_Billing: ACTIVE' : 'Action_Required: KEY_MISSING'}
+            </span>
+            <span className="text-[7px] opacity-60 uppercase mt-1">
+              {hasApiKey ? 'Linked to Cloud Project' : 'Select Key to Enable Production'}
+            </span>
+          </div>
+        </button>
       </div>
 
-      <div className="flex items-center gap-4">
-        <div className={`flex items-center gap-2 px-3 py-1 border rounded-full transition-all ${
-          status === 'COMPILING' ? 'bg-google-accent/10 border-google-accent/20' : 'bg-google-success/10 border-google-success/20'
+      <div className="flex items-center gap-8">
+        <div className={`hidden md:flex items-center gap-4 px-6 py-2 border rounded-full transition-all ${
+          status === 'COMPILING' ? 'bg-google-accent/10 border-google-accent/40' : 'bg-google-success/10 border-google-success/40'
         }`}>
           <div className={`w-1.5 h-1.5 rounded-full ${
-            status === 'COMPILING' ? 'bg-google-accent animate-pulse' : 'bg-google-success'
+            status === 'COMPILING' ? 'bg-google-accent animate-pulse shadow-[0_0_10px_#8ab4f8]' : 'bg-google-success shadow-[0_0_10px_#81c995]'
           }`}></div>
-          <span className={`text-[9px] font-black uppercase tracking-widest ${
+          <span className={`text-[10px] font-black uppercase tracking-[0.4em] italic ${
             status === 'COMPILING' ? 'text-google-accent' : 'text-google-success'
           }`}>
-            {status === 'COMPILING' ? 'Node Computing...' : 'Intranet Healthy'}
+            {status === 'COMPILING' ? 'Kernel_Synthesizing...' : 'Sync_Complete'}
           </span>
         </div>
-        
-        <button className="px-5 py-2 bg-google-success text-google-bg rounded-md text-sm font-bold hover:opacity-80 transition-all shadow-[0_0_20px_rgba(129,201,149,0.2)]">
-          私有化分发
+
+        <button 
+          onClick={onShare}
+          className="p-4 bg-white/5 border border-white/10 rounded-2xl text-white/20 hover:text-white hover:border-white/40 transition-all active:scale-90 interactive"
+        >
+          <Share2 size={20} />
         </button>
         
-        <div className="h-8 w-[1px] bg-google-border mx-2"></div>
+        <div className="h-12 w-[1px] bg-white/10 mx-2"></div>
 
         {user ? (
-          <div className="flex items-center gap-3 pl-2">
-            <div className="flex flex-col items-end hidden md:flex">
-              <span className="text-[10px] font-bold text-google-text leading-none">{user.displayName}</span>
-              <span className="text-[9px] text-google-textMuted leading-none mt-1">ROOT_ADMIN</span>
+          <div className="flex items-center gap-5">
+            <div className="flex flex-col items-end">
+              <span className="text-[11px] font-black text-white leading-none uppercase tracking-widest italic">{user.displayName}</span>
+              <span className="text-[9px] text-white/20 leading-none mt-2 font-mono italic">ARCHITECT_ROOT</span>
             </div>
-            <button 
-              onClick={onLogout}
-              className="w-8 h-8 rounded-full border border-google-border overflow-hidden group relative"
-            >
-              <img src={user.photoURL || ''} alt="User" className="w-full h-full object-cover group-hover:opacity-40 transition-opacity" />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-[8px] font-bold bg-black/40">退出</div>
-            </button>
+            <div className="relative group interactive">
+               <button className="w-12 h-12 rounded-[1.25rem] border border-white/10 overflow-hidden shadow-2xl group-hover:border-google-accent transition-all">
+                 <img src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=8ab4f8&color=131314`} alt="User" className="w-full h-full object-cover" />
+               </button>
+               <button 
+                onClick={onLogout}
+                className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all hover:scale-110 shadow-lg"
+               >
+                 <LogOut size={12} />
+               </button>
+            </div>
           </div>
         ) : (
           <button 
             onClick={onLogin}
-            className="flex items-center gap-2 px-4 py-2 bg-google-surface border border-google-border rounded-lg text-xs font-bold hover:border-google-success transition-colors"
+            className="flex items-center gap-4 px-8 py-3 bg-white text-black rounded-2xl text-[11px] font-black uppercase tracking-[0.4em] hover:bg-google-accent transition-all active:scale-95 italic interactive"
           >
-            <span>🔑</span>
-            <span>系统登入</span>
+            <Command size={16} /> CONNECT_NODE
           </button>
         )}
       </div>

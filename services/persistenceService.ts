@@ -3,7 +3,7 @@ import { MemoryNode, User } from "../types";
 
 /**
  * moda AI Studio - Local Persistence Engine
- * Clean local implementation for Studio state.
+ * Fixed implementation to handle auto-generation of metadata.
  */
 
 const STORAGE_KEYS = {
@@ -47,10 +47,14 @@ export const authService = {
 };
 
 export const memoryService = {
-  save: async (node: Omit<MemoryNode, 'id'>): Promise<string> => {
+  save: async (node: Omit<MemoryNode, 'id' | 'timestamp'>): Promise<string> => {
     const memories = await memoryService.fetchAll();
     const newId = `mcp_${Date.now()}`;
-    const newNode: MemoryNode = { ...node, id: newId, timestamp: new Date().toISOString() };
+    const newNode: MemoryNode = { 
+      ...node, 
+      id: newId, 
+      timestamp: new Date().toISOString() 
+    };
     memories.unshift(newNode);
     localStorage.setItem(STORAGE_KEYS.MEMORIES, JSON.stringify(memories.slice(0, 100)));
     return newId;
