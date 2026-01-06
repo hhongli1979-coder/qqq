@@ -3,7 +3,7 @@ import './animations.css';
 import { TransitionConfig, createTransition } from './transitions';
 
 export interface MotionProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   initial?: CSSProperties;
   animate?: CSSProperties;
   exit?: CSSProperties;
@@ -13,6 +13,11 @@ export interface MotionProps {
   onClick?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
+  // Legacy framer-motion props (ignored for compatibility)
+  whileHover?: any;
+  whileTap?: any;
+  variants?: any;
+  [key: string]: any; // Allow other props
 }
 
 export const Motion: React.FC<MotionProps> = ({
@@ -26,10 +31,12 @@ export const Motion: React.FC<MotionProps> = ({
   onClick,
   onMouseEnter,
   onMouseLeave,
+  whileHover, // Ignored
+  whileTap, // Ignored
+  variants, // Ignored
+  ...rest // Capture other props
 }) => {
   const [currentStyle, setCurrentStyle] = useState<CSSProperties>(initial);
-  const [isExiting, setIsExiting] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Trigger animation after initial render
@@ -48,14 +55,22 @@ export const Motion: React.FC<MotionProps> = ({
     ...currentStyle,
   };
 
+  // Filter out non-DOM props
+  const domProps = Object.keys(rest).reduce((acc: any, key) => {
+    if (!['initial', 'animate', 'exit', 'transition'].includes(key)) {
+      acc[key] = rest[key];
+    }
+    return acc;
+  }, {});
+
   return (
     <div
-      ref={ref}
       className={className}
       style={combinedStyle}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      {...domProps}
     >
       {children}
     </div>
@@ -69,7 +84,6 @@ export interface AnimatePresenceProps {
 
 export const AnimatePresence: React.FC<AnimatePresenceProps> = ({
   children,
-  mode = 'sync',
 }) => {
   // Simple wrapper that just renders children
   // For more complex exit animations, we'd need to track mounting/unmounting
