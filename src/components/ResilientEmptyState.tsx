@@ -1,6 +1,6 @@
 
 import React, { useTransition, useState } from 'react';
-import { RefreshCw, AlertCircle, ArrowRight } from 'lucide-react';
+import { RefreshCw, AlertCircle, ArrowRight } from '@/ui/icons';
 
 interface EmptyStateProps {
   title?: string;

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Motion, AnimatePresence } from '@/ui/animation';
 import { 
   Globe, Radio, RefreshCw, Zap, 
   Search, Link as LinkIcon, AlertCircle, 
@@ -9,7 +9,7 @@ import {
   Database, Network, Terminal as TerminalIcon, Satellite, Radar,
   ShieldCheck, ArrowUpRight, Fingerprint, Waves, Layers, MousePointer2,
   Map as MapIcon, Target, SearchCode
-} from 'lucide-react';
+} from '@/ui/icons';
 import { fetchIntelligence } from '../services/geminiService';
 import ResilientEmptyState from './ResilientEmptyState';
 
@@ -164,7 +164,7 @@ export const Newsroom: React.FC = () => {
                    </div>
                    {i < 3 && (
                      <div className="h-6 w-px bg-white/10 relative">
-                        <motion.div 
+                        <Motion 
                           initial={{ height: 0 }}
                           animate={{ height: activeNodeIndex > node.id ? '100%' : '0%' }}
                           className="w-full bg-google-accent shadow-[0_0_10px_#8ab4f8]"
@@ -260,14 +260,14 @@ export const Newsroom: React.FC = () => {
           <div className="max-w-6xl mx-auto relative z-10">
             <AnimatePresence mode="wait">
               {shards.length > 0 ? (
-                <motion.div 
+                <Motion 
                   key="content"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="grid grid-cols-1 md:grid-cols-2 gap-10"
                 >
                   {shards.map((shard, idx) => (
-                    <motion.div 
+                    <Motion 
                       key={shard.id}
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -293,7 +293,7 @@ export const Newsroom: React.FC = () => {
                              <div className="flex flex-col items-end">
                                 <span className="text-[8px] font-black text-white/20 uppercase tracking-widest italic mb-1">Impact_Factor</span>
                                 <div className="h-1.5 w-24 bg-white/5 rounded-full overflow-hidden">
-                                   <motion.div 
+                                   <Motion 
                                      initial={{ width: 0 }}
                                      animate={{ width: `${shard.impact}%` }}
                                      className="h-full bg-google-accent shadow-[0_0_15px_#8ab4f8]"
@@ -324,7 +324,7 @@ export const Newsroom: React.FC = () => {
                              <ChevronRight size={22} />
                           </button>
                        </div>
-                    </motion.div>
+                    </Motion>
                   ))}
 
                   {/* Grounding Source Nodes */}
@@ -352,7 +352,7 @@ export const Newsroom: React.FC = () => {
                        </div>
                     </div>
                   )}
-                </motion.div>
+                </Motion>
               ) : isCrawlActive ? (
                 <div key="loading" className="h-[65vh] flex flex-col items-center justify-center text-center gap-12 border-2 border-dashed border-white/5 rounded-[6rem]">
                    <div className="relative">

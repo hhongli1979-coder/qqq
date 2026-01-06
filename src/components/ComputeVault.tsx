@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { Motion } from '@/ui/animation';
 import { 
   Database, CreditCard, TrendingUp, ArrowUpRight, 
   Clock, ShieldCheck, Activity, BarChart3, Layers, Zap, ShoppingCart
-} from 'lucide-react';
+} from '@/ui/icons';
 
 export const ComputeVault: React.FC = () => {
   return (

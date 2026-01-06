@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, ChevronDown, Sparkles, Loader2, Chrome } from 'lucide-react';
+import { Motion } from '@/ui/animation';
+import { ArrowRight, ChevronDown, Sparkles, Loader2, Chrome } from '@/ui/icons';
 
 interface ImmersiveLandingProps {
   onStart: () => void;
@@ -57,10 +57,10 @@ const ImmersiveLanding: React.FC<ImmersiveLandingProps> = ({ onStart, onLoginCli
       </header>
 
       <main className="flex-1 relative z-10 flex flex-col items-center justify-center text-center px-12">
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+        <Motion 
+          initial={{ opacity: 0, y: '50px' }}
+          animate={{ opacity: 1, y: '0' }}
+          transition={{ duration: 1200, easing: 'ease-out' }}
           className="mix-difference"
         >
           <div className="flex items-center justify-center gap-4 mb-8 opacity-40">
@@ -74,12 +74,12 @@ const ImmersiveLanding: React.FC<ImmersiveLandingProps> = ({ onStart, onLoginCli
           <h1 className="text-[14vw] font-black tracking-tighter leading-[0.85] uppercase italic text-white cursor-none interactive hover:skew-x-6 transition-transform duration-1000">
             STUDIO
           </h1>
-        </motion.div>
+        </Motion>
 
-        <motion.div 
+        <Motion 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
+          transition={{ delay: 800, duration: 1000 }}
           className="mt-16 flex flex-col items-center min-h-[140px]"
         >
           {isInitiating ? (
@@ -105,16 +105,14 @@ const ImmersiveLanding: React.FC<ImmersiveLandingProps> = ({ onStart, onLoginCli
                 <div className="absolute inset-0 bg-google-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
               </button>
               
-              <motion.div 
-                animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-                className="mt-12 text-white/10"
+              <div 
+                className="mt-12 text-white/10 animate-bounce"
               >
                 <ChevronDown size={32} />
-              </motion.div>
+              </div>
             </div>
           )}
-        </motion.div>
+        </Motion>
       </main>
 
       <footer className="relative z-20 px-12 py-10 flex justify-between items-end mix-blend-difference opacity-40">

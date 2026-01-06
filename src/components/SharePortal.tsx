@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Motion, AnimatePresence } from '@/ui/animation';
 import { 
   X, Copy, Share2, Check, Globe, Shield, QrCode, 
   Twitter, MessageCircle, Linkedin, Instagram, ExternalLink,
   Github, Slack
-} from 'lucide-react';
+} from '@/ui/icons';
 
 interface SharePortalProps {
   onClose: () => void;
@@ -36,11 +36,11 @@ export const SharePortal: React.FC<SharePortalProps> = ({ onClose, blueprintName
   };
 
   return (
-    <motion.div 
+    <Motion 
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 z-[110] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-6"
     >
-      <motion.div 
+      <Motion 
         initial={{ scale: 0.9, y: 40, rotateX: 10 }} 
         animate={{ scale: 1, y: 0, rotateX: 0 }} 
         exit={{ scale: 0.9, y: 40, opacity: 0 }}
@@ -122,7 +122,7 @@ export const SharePortal: React.FC<SharePortalProps> = ({ onClose, blueprintName
         {/* Decorative HUD corners */}
         <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-white/10" />
         <div className="absolute bottom-8 right-8 w-4 h-4 border-b-2 border-r-2 border-white/10" />
-      </motion.div>
-    </motion.div>
+      </Motion>
+    </Motion>
   );
 };

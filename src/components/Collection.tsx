@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { SectionId } from '../types';
-import { LayoutDashboard, Zap, ShoppingCart, Palette, Hexagon, Component } from 'lucide-react';
+import { LayoutDashboard, Zap, ShoppingCart, Palette, Hexagon, Component } from '@/ui/icons';
 
 const sectors = [
   {

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Lock, Unlock, Terminal, Loader2, Info, Chrome, ShieldCheck } from 'lucide-react';
+import { Motion, AnimatePresence } from '@/ui/animation';
+import { X, Lock, Unlock, Terminal, Loader2, Info, Chrome, ShieldCheck } from '@/ui/icons';
 
 export const AccessTerminal = ({ onSuccess, onClose }: { onSuccess: (id: string) => void; onClose: () => void }) => {
   const [inputVal, setInputVal] = useState('');
@@ -32,15 +32,15 @@ export const AccessTerminal = ({ onSuccess, onClose }: { onSuccess: (id: string)
   };
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[110] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
-      <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="w-full max-w-md bg-[#0a0a0a] border border-white/10 rounded-[3rem] overflow-hidden shadow-[0_100px_200px_rgba(0,0,0,0.9)] relative">
+    <Motion initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[110] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
+      <Motion initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="w-full max-w-md bg-[#0a0a0a] border border-white/10 rounded-[3rem] overflow-hidden shadow-[0_100px_200px_rgba(0,0,0,0.9)] relative">
         <div className="p-12 relative">
           <div className="flex justify-center mb-10">
             <AnimatePresence mode='wait'>
-              {status === 'locked' && <motion.div key="l" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-6 bg-white/5 rounded-full text-white/40"><Lock size={32} /></motion.div>}
-              {status === 'verifying' && <motion.div key="v" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-6 bg-google-accent/10 rounded-full text-google-accent"><Loader2 size={32} className="animate-spin" /></motion.div>}
-              {status === 'granted' && <motion.div key="g" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-6 bg-google-success/10 rounded-full text-google-success"><Unlock size={32} /></motion.div>}
-              {status === 'denied' && <motion.div key="d" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-6 bg-red-500/10 rounded-full text-red-500"><X size={32} /></motion.div>}
+              {status === 'locked' && <Motion key="l" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-6 bg-white/5 rounded-full text-white/40"><Lock size={32} /></Motion>}
+              {status === 'verifying' && <Motion key="v" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-6 bg-google-accent/10 rounded-full text-google-accent"><Loader2 size={32} className="animate-spin" /></Motion>}
+              {status === 'granted' && <Motion key="g" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-6 bg-google-success/10 rounded-full text-google-success"><Unlock size={32} /></Motion>}
+              {status === 'denied' && <Motion key="d" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="p-6 bg-red-500/10 rounded-full text-red-500"><X size={32} /></Motion>}
             </AnimatePresence>
           </div>
 
@@ -103,7 +103,7 @@ export const AccessTerminal = ({ onSuccess, onClose }: { onSuccess: (id: string)
 
           <button onClick={onClose} className="absolute top-6 right-6 p-2 text-white/10 hover:text-white transition-colors"><X size={20} /></button>
         </div>
-      </motion.div>
-    </motion.div>
+      </Motion>
+    </Motion>
   );
 };

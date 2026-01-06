@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Code, MessageSquare, ShieldCheck, Cpu } from 'lucide-react';
+import { Motion, AnimatePresence } from '@/ui/animation';
+import { Terminal, Code, MessageSquare, ShieldCheck, Cpu } from '@/ui/icons';
 import { Message } from '../types';
 
 interface SmartCompilerProps {
@@ -55,7 +55,7 @@ const SmartCompiler: React.FC<SmartCompilerProps> = ({ messages, isProcessing, o
       <div className="flex-1 overflow-hidden relative">
         <AnimatePresence mode="wait">
           {view === 'CHAT' ? (
-            <motion.div 
+            <Motion 
               key="chat"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -87,9 +87,9 @@ const SmartCompiler: React.FC<SmartCompilerProps> = ({ messages, isProcessing, o
                   </div>
                 </div>
               )}
-            </motion.div>
+            </Motion>
           ) : (
-            <motion.div 
+            <Motion 
               key="kernel"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -100,7 +100,7 @@ const SmartCompiler: React.FC<SmartCompilerProps> = ({ messages, isProcessing, o
                  <p className="text-white/20">/// START_NEURAL_LOG_SYNC ///</p>
                  {messages.map((m, i) => (
                    <p key={i} className="break-all opacity-40">
-                     [NODE_SYNC_{i}] -> {m.role.toUpperCase()}: {m.content.substring(0, 100)}...
+                     [NODE_SYNC_{i}] -&gt; {m.role.toUpperCase()}: {m.content.substring(0, 100)}...
                    </p>
                  ))}
                  {isProcessing && (
@@ -108,11 +108,11 @@ const SmartCompiler: React.FC<SmartCompilerProps> = ({ messages, isProcessing, o
                     <p className="animate-pulse text-google-accent">[RE-ROUTING] Global_Weights_Optimization_Active</p>
                     <p className="text-white/20">Packet_Loss: 0.00%</p>
                     <p className="text-white/20">Jitter: 2.1ms</p>
-                    <p className="text-google-success/80">>>> STOCHASTIC_GRADIENT_DESCENT_STEP_COMPLETE</p>
+                    <p className="text-google-success/80">&gt;&gt;&gt; STOCHASTIC_GRADIENT_DESCENT_STEP_COMPLETE</p>
                    </>
                  )}
                </div>
-            </motion.div>
+            </Motion>
           )}
         </AnimatePresence>
       </div>

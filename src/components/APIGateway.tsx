@@ -5,7 +5,7 @@ import {
   RefreshCw, Plus, Save, Terminal, Globe, Factory,
   // Added ChevronDown to fix the "Cannot find name 'ChevronDown'" error
   ChevronDown
-} from 'lucide-react';
+} from '@/ui/icons';
 import { Vendor } from '../types';
 
 const INITIAL_VENDORS: Vendor[] = [

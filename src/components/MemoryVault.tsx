@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Motion, AnimatePresence } from '@/ui/animation';
 import { 
   Database, Brain, ShieldCheck, Zap, 
   Trash2, Filter, Search, ChevronRight, 
   Activity, Clock, Layers, Sparkles 
-} from 'lucide-react';
+} from '@/ui/icons';
 import { MemoryNode } from '../types';
 import { memoryService } from '../services/persistenceService';
 
@@ -120,7 +120,7 @@ export const MemoryVault: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence mode="popLayout">
             {filteredMemories.map((node) => (
-              <motion.div 
+              <Motion 
                 layout
                 key={node.id}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -154,7 +154,7 @@ export const MemoryVault: React.FC = () => {
                    <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em] italic">{node.category}</span>
                    <button className="text-white/10 hover:text-red-400 transition-colors"><Trash2 size={14}/></button>
                 </div>
-              </motion.div>
+              </Motion>
             ))}
           </AnimatePresence>
           

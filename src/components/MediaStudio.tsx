@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Motion, AnimatePresence } from '@/ui/animation';
 import { 
   Play, Image as ImageIcon, Video, Wand2, 
   Type, Music, Layers, RefreshCw, 
   Sparkles, Monitor, Tablet, Smartphone, Settings
-} from 'lucide-react';
+} from '@/ui/icons';
 
 // --- MacBook Mockup Wrapper ---
 const MacBookMockup = ({ children }: { children: React.ReactNode }) => (
@@ -86,13 +86,13 @@ export const AISoftwareUI = () => {
         <div className="relative z-10 w-full max-w-4xl aspect-video bg-black rounded-3xl border border-white/5 shadow-[0_40px_80px_rgba(0,0,0,0.6)] overflow-hidden group/canvas">
           <AnimatePresence mode="wait">
             {isGenerating ? (
-              <motion.div 
+              <Motion 
                 key="gen"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                 className="absolute inset-0 flex flex-col items-center justify-center bg-black/90 z-20"
               >
                 <div className="w-72 h-1.5 bg-white/5 rounded-full overflow-hidden mb-6 border border-white/5">
-                  <motion.div 
+                  <Motion 
                     className="h-full bg-google-accent shadow-[0_0_15px_#8ab4f8]" 
                     style={{ width: `${progress}%` }} 
                   />
@@ -101,9 +101,9 @@ export const AISoftwareUI = () => {
                   <span className="text-[10px] text-google-accent font-black uppercase tracking-[0.5em] animate-pulse">Neural Synth Core Active</span>
                   <span className="text-[10px] font-mono text-white/40">{progress}%</span>
                 </div>
-              </motion.div>
+              </Motion>
             ) : (
-              <motion.div 
+              <Motion 
                 key="result"
                 initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }}
                 className="w-full h-full"
@@ -129,7 +129,7 @@ export const AISoftwareUI = () => {
                     </div>
                   </div>
                 )}
-              </motion.div>
+              </Motion>
             )}
           </AnimatePresence>
 
@@ -202,12 +202,12 @@ const MediaStudio: React.FC = () => {
       
       {/* External Page Context */}
       <div className="p-12 pb-2 text-center max-w-3xl mx-auto shrink-0 relative z-20">
-        <motion.div 
+        <Motion 
           initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-google-accent/10 text-google-accent text-[10px] font-black uppercase tracking-[0.5em] mb-8 border border-google-accent/20 italic"
         >
            <Sparkles size={12} /> Creation Lab v3.0
-        </motion.div>
+        </Motion>
         <h2 className="text-4xl lg:text-5xl font-black italic text-white tracking-tighter uppercase mb-6 leading-none">
           AI 媒体生产工坊
         </h2>

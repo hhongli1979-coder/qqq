@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Sparkles, Layout, Eye, ArrowRight, Zap, Filter, Command, Hexagon } from 'lucide-react';
+import { Motion, AnimatePresence } from '@/ui/animation';
+import { Search, Sparkles, Layout, Eye, ArrowRight, Zap, Filter, Command, Hexagon } from '@/ui/icons';
 
 export const TEMPLATE_DB = [
   {
@@ -43,7 +43,7 @@ export const TEMPLATE_DB = [
 ];
 
 const TemplateCard = ({ template }: { template: typeof TEMPLATE_DB[0] }) => (
-  <motion.div 
+  <Motion 
     layout
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -61,13 +61,13 @@ const TemplateCard = ({ template }: { template: typeof TEMPLATE_DB[0] }) => (
       <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_2px] pointer-events-none opacity-20 z-15" />
 
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/60 backdrop-blur-sm">
-        <motion.button 
+        <Motion 
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="px-8 py-3 bg-white text-black rounded-full font-black uppercase tracking-[0.2em] text-[10px] flex items-center gap-3 shadow-2xl italic"
         >
           <Layout size={14} /> Forge Template
-        </motion.button>
+        </Motion>
         <button className="px-8 py-3 border border-white/20 text-white rounded-full font-black uppercase tracking-[0.2em] text-[10px] flex items-center gap-3 hover:bg-white/10 transition-all italic">
           <Eye size={14} /> Live Peek
         </button>
@@ -93,7 +93,7 @@ const TemplateCard = ({ template }: { template: typeof TEMPLATE_DB[0] }) => (
       </div>
       <p className="text-white/40 text-xs font-light leading-relaxed italic group-hover:text-white/70 transition-colors">{template.desc}</p>
     </div>
-  </motion.div>
+  </Motion>
 );
 
 const TemplateWarehouse: React.FC = () => {
@@ -142,7 +142,7 @@ const TemplateWarehouse: React.FC = () => {
           >
             {cat}
             {filter === cat && (
-              <motion.div layoutId="filter-active" className="absolute bottom-0 left-0 w-full h-0.5 bg-google-accent shadow-[0_0_10px_#8ab4f8]" />
+              <Motion layoutId="filter-active" className="absolute bottom-0 left-0 w-full h-0.5 bg-google-accent shadow-[0_0_10px_#8ab4f8]" />
             )}
           </button>
         ))}

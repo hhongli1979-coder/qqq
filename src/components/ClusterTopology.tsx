@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { Motion } from '@/ui/animation';
 import { 
   Cpu, Zap, Server, Network, Globe, 
   Shield, Activity, Share2, CornerRightDown
-} from 'lucide-react';
+} from '@/ui/icons';
 import { PrivateNode } from '../types';
 
 export const ClusterTopology: React.FC<{ nodes: PrivateNode[] }> = ({ nodes }) => {
@@ -45,14 +45,14 @@ export const ClusterTopology: React.FC<{ nodes: PrivateNode[] }> = ({ nodes }) =
 
         {/* Central Gateway Node */}
         <div className="relative z-10 w-48 h-48 flex items-center justify-center">
-          <motion.div 
+          <Motion 
             animate={{ scale: [1, 1.05, 1], rotate: [0, 5, -5, 0] }}
             transition={{ repeat: Infinity, duration: 6 }}
             className="w-full h-full bg-google-accent/5 border border-google-accent/30 rounded-[3rem] backdrop-blur-3xl flex flex-col items-center justify-center shadow-[0_0_100px_rgba(138,180,248,0.15)] group"
           >
             <Shield size={48} className="text-google-accent mb-4 group-hover:scale-110 transition-transform" />
             <span className="text-[10px] font-black text-white/60 uppercase tracking-widest italic">MCP_GATEWAY</span>
-          </motion.div>
+          </Motion>
           {/* Signal Ripples */}
           <div className="absolute inset-0 rounded-[3rem] border border-google-accent/40 animate-ping opacity-20"></div>
         </div>
@@ -76,7 +76,7 @@ export const ClusterTopology: React.FC<{ nodes: PrivateNode[] }> = ({ nodes }) =
 };
 
 const PeripheralNode = ({ x, y, icon, name, load, warning }: any) => (
-  <motion.div 
+  <Motion 
     initial={{ opacity: 0 }} animate={{ opacity: 1 }}
     className="absolute flex flex-col items-center gap-4 group"
     style={{ left: `calc(50% + ${x})`, top: `calc(50% + ${y})`, transform: 'translate(-50%, -50%)' }}
@@ -96,7 +96,7 @@ const PeripheralNode = ({ x, y, icon, name, load, warning }: any) => (
        <p className="text-[10px] font-black uppercase tracking-widest text-white/40 italic mb-1 group-hover:text-white transition-colors">{name}</p>
        <p className={`text-[8px] font-mono ${warning ? 'text-red-400' : 'text-white/20'}`}>{load}% LOAD</p>
     </div>
-  </motion.div>
+  </Motion>
 );
 
 const StatItem = ({ label, val, trend }: any) => (

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { CompilerStatus, User } from '../types';
-import { Share2, Globe, Shield, LogOut, Command, CreditCard } from 'lucide-react';
+import { Share2, Globe, Shield, LogOut, Command, CreditCard } from '@/ui/icons';
 
 interface NavbarProps {
   status: CompilerStatus;

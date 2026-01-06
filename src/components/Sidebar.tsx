@@ -14,7 +14,7 @@ import {
   Network,
   Database,
   Briefcase
-} from 'lucide-react';
+} from '@/ui/icons';
 
 interface SidebarProps {
   activeStep: string;

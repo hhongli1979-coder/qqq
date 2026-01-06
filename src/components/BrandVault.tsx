@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Motion, AnimatePresence } from '@/ui/animation';
 import { 
   Download, RefreshCw, Box, CheckCircle, 
   Terminal, Package, Cpu, ShieldCheck, 
   Layers, HardDrive, Binary, ArrowRight
-} from 'lucide-react';
+} from '@/ui/icons';
 import { BrandPackage } from '../types';
 
 const BRANDS: BrandPackage[] = [
@@ -81,7 +81,7 @@ export const BrandVault: React.FC = () => {
       {/* Brand Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-8 mb-16">
         {packages.map((pkg) => (
-          <motion.div 
+          <Motion 
             key={pkg.id}
             whileHover={{ y: -8, scale: 1.02 }}
             className={`relative bg-[#0a0a0a] border border-white/5 rounded-[3rem] p-10 flex flex-col group transition-all duration-700 overflow-hidden shadow-2xl
@@ -129,12 +129,12 @@ export const BrandVault: React.FC = () => {
             {/* Installer Overlay */}
             <AnimatePresence>
               {installingId === pkg.id && (
-                <motion.div 
+                <Motion 
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   className="absolute inset-0 bg-black/95 z-30 flex flex-col items-center justify-center p-8 text-center"
                 >
                    <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden mb-6">
-                      <motion.div 
+                      <Motion 
                         className="h-full bg-google-accent shadow-[0_0_15px_#8ab4f8]" 
                         initial={{ width: 0 }}
                         animate={{ width: `${installProgress}%` }}
@@ -143,10 +143,10 @@ export const BrandVault: React.FC = () => {
                    <Binary size={32} className="text-google-accent animate-pulse mb-4" />
                    <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] italic">Synthesizing_Registry</p>
                    <span className="text-[9px] font-mono text-white/20 mt-4">{installProgress}%</span>
-                </motion.div>
+                </Motion>
               )}
             </AnimatePresence>
-          </motion.div>
+          </Motion>
         ))}
       </div>
 
@@ -164,10 +164,10 @@ export const BrandVault: React.FC = () => {
             <div className="bg-black/40 rounded-[2.5rem] border border-white/5 p-10 font-mono text-[11px] space-y-3 h-64 overflow-y-auto studio-scroll shadow-inner">
                <AnimatePresence>
                  {logs.length > 0 ? logs.map((log, i) => (
-                   <motion.div key={i + log} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="flex gap-4">
-                     <span className="text-google-accent">>></span>
+                   <Motion key={i + log} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: '0' }} className="flex gap-4">
+                     <span className="text-google-accent">&gt;&gt;</span>
                      <span className="text-white/40">{log}</span>
-                   </motion.div>
+                   </Motion>
                  )) : <p className="text-white/5 italic">Awaiting brand deployment instructions...</p>}
                </AnimatePresence>
             </div>

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, useSpring, AnimatePresence } from 'framer-motion';
+import { Motion, AnimatePresence } from '@/ui/animation';
 import { SectionId, Asset, Message, PrivateNode } from '../types';
 import SmartCompiler from './AIStylist';
 import TemplateWarehouse from './TemplateWarehouse';
@@ -13,12 +13,10 @@ import { ClusterTopology } from './ClusterTopology';
 import { ComputeVault } from './ComputeVault';
 import { AIMarket } from './AIMarket';
 import { BrandVault } from './BrandVault'; 
-import { MemoryVault } from './MemoryVault'; // New Import
+import { MemoryVault } from './MemoryVault';
 import { 
-  Plus, Minus, Grip, Maximize, Crosshair, 
-  Layers, Zap, ShoppingCart, Palette, LayoutDashboard, Settings,
-  Map as MapIcon, MousePointer2, Briefcase, Database
-} from 'lucide-react';
+  Plus, Minus
+} from '@/ui/icons';
 
 interface WorkspaceProps {
   activeStep: string;
@@ -93,7 +91,7 @@ const Workspace: React.FC<WorkspaceProps> = ({
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      <motion.div 
+      <Motion 
         className="absolute inset-0 pointer-events-none singularity-grid"
         style={{ 
           x: springX, 
@@ -102,7 +100,7 @@ const Workspace: React.FC<WorkspaceProps> = ({
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-google-accent/[0.02] to-transparent animate-pulse" />
-      </motion.div>
+      </Motion>
 
       <div className="fixed top-28 left-12 z-[60] mix-difference pointer-events-none">
         <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.5em] italic block mb-2">Current_Sector</span>
@@ -145,7 +143,7 @@ const Workspace: React.FC<WorkspaceProps> = ({
                 />
               ))}
               
-              <motion.div 
+              <Motion 
                 className="absolute border-[1.5px] border-google-accent/40 bg-google-accent/5 rounded-[4px] pointer-events-none"
                 style={{
                   width: 40 / scale,
@@ -159,7 +157,7 @@ const Workspace: React.FC<WorkspaceProps> = ({
         </div>
       </div>
 
-      <motion.div 
+      <Motion 
         className="absolute left-1/2 top-1/2 w-0 h-0"
         style={{ x: springX, y: springY, scale }}
       >
@@ -221,7 +219,7 @@ const Workspace: React.FC<WorkspaceProps> = ({
         <NodeDecoration x={2000} y={1500} text="SYNTH" />
         <NodeDecoration x={-1500} y={2000} text="PROTO" />
         <NodeDecoration x={1500} y={-1500} text="BRAND" />
-      </motion.div>
+      </Motion>
 
       <div className="fixed bottom-12 left-12 flex items-center gap-4 px-8 py-5 bg-black/60 backdrop-blur-3xl border border-white/5 rounded-full shadow-2xl z-50">
         <button onClick={() => setScale(s => Math.max(0.2, s - 0.1))} className="p-3 hover:bg-white/10 rounded-full transition-all text-white/40 hover:text-white interactive"><Minus size={18}/></button>

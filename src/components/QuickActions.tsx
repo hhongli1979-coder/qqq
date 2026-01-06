@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Share2, Plus, MessageCircle, Twitter, Linkedin, X, Zap } from 'lucide-react';
+import { Motion, AnimatePresence } from '@/ui/animation';
+import { Share2, Plus, MessageCircle, Twitter, Linkedin, X, Zap } from '@/ui/icons';
 
 export const QuickActions = ({ onShareOpen }: { onShareOpen: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,7 @@ export const QuickActions = ({ onShareOpen }: { onShareOpen: () => void }) => {
         {isOpen && (
           <div className="flex flex-col items-end gap-3 mb-2">
             {actions.map((act, i) => (
-              <motion.button
+              <Motion
                 key={i}
                 initial={{ opacity: 0, x: 20, scale: 0.8 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -31,13 +31,13 @@ export const QuickActions = ({ onShareOpen }: { onShareOpen: () => void }) => {
                   {act.label}
                 </span>
                 {act.icon}
-              </motion.button>
+              </Motion>
             ))}
           </div>
         )}
       </AnimatePresence>
 
-      <motion.button
+      <Motion
         whileHover={{ scale: 1.1, rotate: isOpen ? 90 : 0 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
@@ -49,7 +49,7 @@ export const QuickActions = ({ onShareOpen }: { onShareOpen: () => void }) => {
         {!isOpen && (
           <div className="absolute -top-1 -right-1 w-4 h-4 bg-google-success rounded-full animate-ping pointer-events-none" />
         )}
-      </motion.button>
+      </Motion>
     </div>
   );
 };

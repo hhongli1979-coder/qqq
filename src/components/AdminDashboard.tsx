@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { 
   ArrowUpRight, Zap, Bell, Search, 
   ChevronDown, Hexagon, Component, Globe, Cpu, Server, Shield, Network, Link2
-} from 'lucide-react';
+} from '@/ui/icons';
 import { PrivateNode } from '../types';
 import { APIGateway } from './APIGateway';
 

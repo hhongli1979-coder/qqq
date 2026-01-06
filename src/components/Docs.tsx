@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { Motion } from '@/ui/animation';
 import { 
   Book, Code, Terminal, ChevronRight, Copy, 
   Check, Hash, FileJson, Zap, Search 
-} from 'lucide-react';
+} from '@/ui/icons';
 
 const DOC_SECTIONS = [
   {

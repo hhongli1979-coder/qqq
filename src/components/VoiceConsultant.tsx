@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, MicOff, Waves, BrainCircuit, MessageCircle, Sparkles, Activity } from 'lucide-react';
+import { Motion, AnimatePresence } from '@/ui/animation';
+import { Mic, MicOff } from '@/ui/icons';
 import { connectLiveConsultant, decodeAudioData, decodeAudio, createPcmBlob } from '../services/geminiService';
 
 export const VoiceConsultant: React.FC = () => {
@@ -98,7 +98,7 @@ export const VoiceConsultant: React.FC = () => {
         {isActive && (
           <div className="flex flex-col items-end gap-4 max-w-lg">
             {/* AI Speech Bubble */}
-            <motion.div 
+            <Motion 
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -124,7 +124,7 @@ export const VoiceConsultant: React.FC = () => {
               {/* Real-time Dynamic Waveform HUD */}
               <div className="h-6 flex items-center gap-1">
                 {[...Array(24)].map((_, i) => (
-                  <motion.div 
+                  <Motion 
                     key={i}
                     animate={{ 
                       height: isSpeaking ? [4, Math.random() * 20 + 4, 4] : isListening ? [2, Math.random() * 8 + 2, 2] : 2,
@@ -135,26 +135,26 @@ export const VoiceConsultant: React.FC = () => {
                   />
                 ))}
               </div>
-            </motion.div>
+            </Motion>
 
             {/* User Input Ghost Feedback */}
             {userText && (
-              <motion.div 
+              <Motion 
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 className="bg-white/5 backdrop-blur-xl px-8 py-3 rounded-full border border-white/10 shadow-2xl"
               >
                 <p className="text-[11px] font-black text-google-success italic uppercase tracking-[0.3em]">User_Input: {userText}</p>
-              </motion.div>
+              </Motion>
             )}
 
             {/* Consultant Avatar */}
-            <motion.div 
+            <Motion 
               initial={{ scale: 0.8 }} animate={{ scale: 1 }}
               className="w-28 h-28 bg-black border border-white/10 rounded-[3.5rem] flex items-center justify-center relative overflow-hidden group shadow-2xl shadow-google-accent/5"
             >
               <div className={`absolute inset-0 transition-all duration-1000 ${isSpeaking ? 'bg-google-accent/10' : 'bg-transparent'}`} />
-              <motion.div 
+              <Motion 
                 animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
                 className="absolute inset-2 border border-dashed border-white/10 rounded-full"
@@ -168,12 +168,12 @@ export const VoiceConsultant: React.FC = () => {
                   <MessageCircle size={36} className="text-white/10 group-hover:text-white transition-colors" />
                 )}
               </div>
-            </motion.div>
+            </Motion>
           </div>
         )}
       </AnimatePresence>
 
-      <motion.button
+      <Motion
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={toggleSession}
@@ -185,7 +185,7 @@ export const VoiceConsultant: React.FC = () => {
         <span className="text-[7px] font-black uppercase tracking-widest mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
           {isActive ? 'Live' : 'Connect'}
         </span>
-      </motion.button>
+      </Motion>
     </div>
   );
 };

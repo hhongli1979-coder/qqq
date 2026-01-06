@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Motion, AnimatePresence } from '@/ui/animation';
 import { 
   ShoppingCart, Sparkles, Zap, Shield, 
   BarChart3, Box, Cpu, ChevronRight, Search,
   Filter, Star, Globe, Layers
-} from 'lucide-react';
+} from '@/ui/icons';
 
 const MODELS = [
   {
@@ -130,7 +130,7 @@ export const AIMarket: React.FC = () => {
 };
 
 const ModelCard = ({ model }: any) => (
-  <motion.div 
+  <Motion 
     whileHover={{ y: -5 }}
     className="bg-white/[0.02] border border-white/5 rounded-[3rem] p-8 flex flex-col hover:border-white/20 transition-all shadow-xl group relative overflow-hidden"
   >
@@ -171,7 +171,7 @@ const ModelCard = ({ model }: any) => (
     <button className="w-full mt-10 py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-white/40 group-hover:bg-white group-hover:text-black transition-all italic active:scale-95 shadow-2xl">
       Sync Node
     </button>
-  </motion.div>
+  </Motion>
 );
 
 const PlusIcon = () => (

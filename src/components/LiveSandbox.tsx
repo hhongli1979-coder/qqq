@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { Motion } from '@/ui/animation';
 import { 
   Globe, Smartphone, Tablet, Monitor, 
   RotateCcw, ExternalLink, Shield, Code, Zap
-} from 'lucide-react';
+} from '@/ui/icons';
 
 export const LiveSandbox: React.FC = () => {
   const [device, setDevice] = useState<'MOBILE' | 'TABLET' | 'DESKTOP'>('DESKTOP');
@@ -52,7 +52,7 @@ export const LiveSandbox: React.FC = () => {
 
         {/* Device Frame */}
         <div className={`flex-1 w-full flex items-center justify-center p-12 transition-all duration-700 ease-in-out`}>
-           <motion.div 
+           <Motion 
               layout
               className={`${deviceWidths[device]} w-full aspect-[9/16] md:aspect-auto md:h-full bg-white rounded-[2rem] overflow-hidden shadow-[0_60px_120px_rgba(0,0,0,0.8)] border border-white/10 relative group`}
            >
@@ -78,7 +78,7 @@ export const LiveSandbox: React.FC = () => {
                  <div className="absolute inset-0 border-[2px] border-google-accent/40 border-dashed" />
                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-google-accent text-google-bg px-4 py-1 text-[8px] font-black uppercase tracking-widest rounded-full">DIV.CONTAINER_ROOT</div>
               </div>
-           </motion.div>
+           </Motion>
         </div>
 
         {/* Bottom Console */}
