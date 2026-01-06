@@ -11,7 +11,7 @@
   "dependencies": {
     "@v3ai/ui-react": "workspace:*",
     "@v3ai/core": "workspace:*",
-    "react": "19.0.0",
+    "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "framer-motion": "11.11.17",
     "@google/genai": "1.34.0"
