@@ -1,4 +1,5 @@
-export type { IconProps } from './Sparkles';
+export type { IconProps } from './types';
+export { Sparkles } from './Sparkles';
 export { Database } from './Database';
 export { Code } from './Code';
 export { Settings } from './Settings';

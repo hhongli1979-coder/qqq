@@ -1,5 +1,6 @@
 // Script to generate icon components
 // This generates a representative set of icons to demonstrate the pattern
+// Note: Sparkles is created manually as the reference implementation
 
 const icons = {
   Database: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>',
@@ -48,11 +49,7 @@ console.log('Generating icon components...\n');
 
 Object.entries(icons).forEach(([name, paths]) => {
   const component = `import React from 'react';
-
-export interface IconProps extends React.SVGProps<SVGSVGElement> {
-  size?: number | string;
-  color?: string;
-}
+import { IconProps } from './types';
 
 export const ${name}: React.FC<IconProps> = ({ 
   size = 24, 
@@ -84,10 +81,11 @@ ${name}.displayName = '${name}';
 });
 
 // Generate index file
-const indexContent = `export type { IconProps } from './Sparkles';
+const indexContent = `export type { IconProps } from './types';
+export { Sparkles } from './Sparkles';
 ${Object.keys(icons).map(name => `export { ${name} } from './${name}';`).join('\n')}
 `;
 
 require('fs').writeFileSync('packages/react/src/icons/index.ts', indexContent);
 console.log('\nGenerated index.ts');
-console.log(`\nTotal icons: ${Object.keys(icons).length + 1}`); // +1 for Sparkles
+console.log(`\nTotal icons: ${Object.keys(icons).length + 1} (including Sparkles)`);
