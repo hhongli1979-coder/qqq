@@ -62,6 +62,11 @@ npm run dev
 - 在 Vercel Project Settings → Environment Variables 设置：`GEMINI_API_KEY`（必填），如需 OpenAI 也设置 `OPENAI_API_KEY`。
 - 本项目已提供 `vercel.json`，支持单页应用路由与静态资源缓存。
 
+### （可选）后端代理以隐藏金钥
+- 新增 `api/ai-proxy.ts` 作为 Vercel Serverless 函数，前端可改为调用 `/api/ai-proxy`，不再直接把金钥暴露在浏览器。
+- 请求格式：`POST /api/ai-proxy`，JSON `{ provider?: 'GEMINI' | 'OPENAI', messages?: Message[], userInput: string }`
+- 环境变量：`GEMINI_API_KEY`（或 `API_KEY` 兼容）/ `OPENAI_API_KEY`
+
 ### 绑定与验证自定义域名（例如 modamoda.club）
 1) 在 Vercel 控制台 Project → Domains 添加 `modamoda.club`。
 2) 到域名 DNS 服务商添加 Vercel 指引的 `A/CNAME/TXT` 记录。
