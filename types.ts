@@ -12,6 +12,8 @@ export interface User {
   username?: string;
 }
 
+export type LLMProvider = 'GEMINI' | 'OPENAI';
+
 export type CompilerStatus = 'IDLE' | 'CONFIGURING' | 'COMPILING' | 'DEPLOYING' | 'READY' | 'SYNCING';
 
 export enum SectionId {
