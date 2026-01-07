@@ -41,6 +41,7 @@ const openKeyDialog = async () => {
 // Map URL paths to SectionId
 const PATH_TO_SECTION: Record<string, SectionId> = {
   '/': SectionId.Dashboard,
+  '/dashboard': SectionId.Dashboard,
   '/compiler': SectionId.MistBuilder,
   '/preview': SectionId.Preview,
   '/market': SectionId.AIMarket,
@@ -161,6 +162,7 @@ const App: React.FC = () => {
         <main className="flex-1 flex flex-col relative overflow-hidden">
           <Routes>
             <Route path="/" element={renderPage()} />
+            <Route path="/dashboard" element={renderPage()} />
             <Route path="/compiler" element={renderPage()} />
             <Route path="/preview" element={renderPage()} />
             <Route path="/market" element={renderPage()} />
