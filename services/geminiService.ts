@@ -102,7 +102,7 @@ const getGeminiResponseStream = async (
   onChunk: (text: string) => void
 ): Promise<string> => {
   // 优先尝试手动覆写的 Gemini Key
-  const apiKey = vaultService.getKey('GEMINI_OVERRIDE') || process.env.API_KEY;
+  const apiKey = vaultService.getKey('GEMINI_OVERRIDE') || process.env.GEMINI_API_KEY || process.env.API_KEY;
   if (!apiKey) throw new Error("API_KEY_MISSING");
 
   const ai = new GoogleGenAI({ apiKey });
@@ -139,7 +139,7 @@ const getGeminiResponseStream = async (
 };
 
 export const fetchIntelligence = async (topic: string): Promise<{ text: string, sources: any[] }> => {
-  const apiKey = vaultService.getKey('GEMINI_OVERRIDE') || process.env.API_KEY;
+  const apiKey = vaultService.getKey('GEMINI_OVERRIDE') || process.env.GEMINI_API_KEY || process.env.API_KEY;
   if (!apiKey) throw new Error("API_KEY_MISSING");
   const ai = new GoogleGenAI({ apiKey });
   const response = await ai.models.generateContent({
@@ -151,7 +151,7 @@ export const fetchIntelligence = async (topic: string): Promise<{ text: string, 
 };
 
 export const generateImage = async (prompt: string): Promise<string> => {
-  const apiKey = vaultService.getKey('GEMINI_OVERRIDE') || process.env.API_KEY;
+  const apiKey = vaultService.getKey('GEMINI_OVERRIDE') || process.env.GEMINI_API_KEY || process.env.API_KEY;
   if (!apiKey) throw new Error("API_KEY_MISSING");
   const ai = new GoogleGenAI({ apiKey });
   const response = await ai.models.generateContent({
@@ -165,7 +165,7 @@ export const generateImage = async (prompt: string): Promise<string> => {
 };
 
 export const generateVideo = async (prompt: string, onProgress: (msg: string) => void): Promise<string> => {
-  const apiKey = vaultService.getKey('GEMINI_OVERRIDE') || process.env.API_KEY;
+  const apiKey = vaultService.getKey('GEMINI_OVERRIDE') || process.env.GEMINI_API_KEY || process.env.API_KEY;
   if (!apiKey) throw new Error("API_KEY_MISSING");
   const ai = new GoogleGenAI({ apiKey });
   onProgress("任务已提交至渲染集群...");
