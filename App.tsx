@@ -125,6 +125,20 @@ const App: React.FC = () => {
     }
   };
 
+  const renderPage = () => (
+    <Workspace 
+      activeStep={activeStep} 
+      messages={messages} 
+      isProcessing={isProcessing} 
+      nodes={nodes} 
+      onSendMessage={handleSendMessage} 
+      onStepChange={(id) => {
+         const path = Object.keys(PATH_TO_SECTION).find(k => PATH_TO_SECTION[k] === id);
+         if (path) navigate(path);
+      }} 
+    />
+  );
+
   return (
     <div className="h-screen bg-luxury-obsidian transition-colors duration-500 overflow-hidden flex flex-col font-sans">
       <Navbar 
@@ -145,17 +159,20 @@ const App: React.FC = () => {
         }} />
         
         <main className="flex-1 flex flex-col relative overflow-hidden">
-          <Workspace 
-            activeStep={activeStep} 
-            messages={messages} 
-            isProcessing={isProcessing} 
-            nodes={nodes} 
-            onSendMessage={handleSendMessage} 
-            onStepChange={(id) => {
-               const path = Object.keys(PATH_TO_SECTION).find(k => PATH_TO_SECTION[k] === id);
-               if (path) navigate(path);
-            }} 
-          />
+          <Routes>
+            <Route path="/" element={renderPage()} />
+            <Route path="/compiler" element={renderPage()} />
+            <Route path="/preview" element={renderPage()} />
+            <Route path="/market" element={renderPage()} />
+            <Route path="/brand" element={renderPage()} />
+            <Route path="/studio" element={renderPage()} />
+            <Route path="/zeitgeist" element={renderPage()} />
+            <Route path="/cluster" element={renderPage()} />
+            <Route path="/memory" element={renderPage()} />
+            <Route path="/docs" element={renderPage()} />
+            <Route path="/admin" element={renderPage()} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
           
           <AnimatePresence>
             {activeStep === SectionId.MistBuilder && (
