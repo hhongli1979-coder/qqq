@@ -22,11 +22,22 @@ cd moda-ai-studio
 npm install
 ```
 
-### 3. 配置环境变量
-在项目根目录下创建一个 `.env` 文件，并填入你的 API Key：
+### 3. 配置环境变量（本地或 Vercel）
+- 本地开发：在项目根目录创建 `.env`（已被 `.gitignore` 忽略，切勿提交）。
+- 生产部署（Vercel）：到 Project Settings → Environment Variables 配置同名变量。
+
+推荐变量（示例见 `.env.example`）：
 ```env
-# 获取地址: https://aistudio.google.com/app/apikey
-API_KEY=你的_GOOGLE_GEMINI_API_KEY
+# Google AI Studio 密钥（推荐）
+GEMINI_API_KEY=你的_GEMINI_API_KEY
+
+# 可选：OpenAI 兼容密钥（若切换到 OPENAI 提供商）
+OPENAI_API_KEY=可选_OPENAI_KEY
+
+# 仅用于本地脚本与 Vercel API 交互（不要放到前端代码里）
+VERCEL_TOKEN=你的_VERCEL_TOKEN
+VERCEL_PROJECT_ID=你的_VERCEL_PROJECT_ID
+VERCEL_ORG_ID=你的_VERCEL_ORG_ID
 ```
 
 ### 4. 启动开发服务器
@@ -45,6 +56,40 @@ npm run dev
 ## 🔐 隐私与主权
 - **本地持久化**: 所有的聊天记录和配置均存储在浏览器的 `LocalStorage` 中。
 - **代码导出**: 在“编译器”中生成的代码遵循标准的 ES6/TSX 规范，可直接复制到 VS Code 中使用。
+
+## ☁️ 部署到 Vercel
+- 连接 GitHub 仓库（main 分支自动部署）。
+- 在 Vercel Project Settings → Environment Variables 设置：`GEMINI_API_KEY`（必填），如需 OpenAI 也设置 `OPENAI_API_KEY`。
+- 本项目已提供 `vercel.json`，支持单页应用路由与静态资源缓存。
+
+### 绑定与验证自定义域名（例如 modamoda.club）
+1) 在 Vercel 控制台 Project → Domains 添加 `modamoda.club`。
+2) 到域名 DNS 服务商添加 Vercel 指引的 `A/CNAME/TXT` 记录。
+3) 返回 Vercel 点击 Verify 直至状态为已验证。
+
+> 注意：不要在代码中硬编码域名或任何密码/Token。域名、Token、项目 ID 等仅应放在 Vercel 的环境变量或本地 `.env` 中。
+
+### 与 Vercel API 交互（可选）
+使用环境变量驱动的脚本或 `curl`，避免将 Token/ID 写死在代码里：
+```bash
+# 获取项目信息
+curl -H "Authorization: Bearer $VERCEL_TOKEN" \
+	"https://api.vercel.com/v9/projects/$VERCEL_PROJECT_ID"
+
+# 列出域名
+curl -H "Authorization: Bearer $VERCEL_TOKEN" \
+	"https://api.vercel.com/v10/projects/$VERCEL_PROJECT_ID/domains"
+
+# 绑定域名
+curl -X POST -H "Authorization: Bearer $VERCEL_TOKEN" \
+	-H "Content-Type: application/json" \
+	-d '{"name":"modamoda.club"}' \
+	"https://api.vercel.com/v10/projects/$VERCEL_PROJECT_ID/domains"
+
+# 触发域名验证
+curl -X POST -H "Authorization: Bearer $VERCEL_TOKEN" \
+	"https://api.vercel.com/v10/domains/modamoda.club/verify"
+```
 
 ---
 *Powered by Google Gemini & Moda Labs.*
