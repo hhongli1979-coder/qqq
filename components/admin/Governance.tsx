@@ -92,9 +92,9 @@ export const Governance: React.FC = () => {
 
            <LuxuryCard title="Governance Flow" icon={Layers}>
               <div className="font-mono text-[9px] text-white/20 italic space-y-4">
-                 <p className="flex items-center gap-3"><span className="text-luxury-gold">>>></span> Scanning Neural Registry...</p>
-                 <p className="flex items-center gap-3"><span className="text-luxury-gold">>>></span> All Policies: STABLE</p>
-                 <p className="flex items-center gap-3"><span className="text-google-success">>>></span> AUDIT_SYNC: PASSED_Institutional_v4</p>
+                 <p className="flex items-center gap-3"><span className="text-luxury-gold">{'>>>'}</span> Scanning Neural Registry...</p>
+                 <p className="flex items-center gap-3"><span className="text-luxury-gold">{'>>>'}</span> All Policies: STABLE</p>
+                 <p className="flex items-center gap-3"><span className="text-google-success">{'>>>'}</span> AUDIT_SYNC: PASSED_Institutional_v4</p>
               </div>
            </LuxuryCard>
         </div>

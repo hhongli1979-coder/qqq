@@ -75,9 +75,9 @@ export const ControlCenter: React.FC = () => {
         <div className="space-y-12">
            <LuxuryCard title="Audit Diagnostics" icon={Terminal}>
               <div className="space-y-6 font-mono text-[10px] text-white/30 italic">
-                 <p className="flex items-center gap-4"><span className="text-luxury-gold">>>></span> [09:12] Neural Handshake: AES_GCM_STABLE</p>
-                 <p className="flex items-center gap-4"><span className="text-luxury-gold">>>></span> [09:10] Registry Integrity: 100%</p>
-                 <p className="flex items-center gap-4"><span className="text-google-success">>>></span> NODE_STATE: SECURE</p>
+                 <p className="flex items-center gap-4"><span className="text-luxury-gold">{'>>>'}</span> [09:12] Neural Handshake: AES_GCM_STABLE</p>
+                 <p className="flex items-center gap-4"><span className="text-luxury-gold">{'>>>'}</span> [09:10] Registry Integrity: 100%</p>
+                 <p className="flex items-center gap-4"><span className="text-google-success">{'>>>'}</span> NODE_STATE: SECURE</p>
               </div>
            </LuxuryCard>
 

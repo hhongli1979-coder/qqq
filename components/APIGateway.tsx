@@ -94,10 +94,10 @@ export const APIGateway: React.FC = () => {
               <Terminal size={14} />
             </div>
             <div className="flex-1 font-mono text-[10px] text-luxury-gold/40 space-y-2 overflow-y-auto no-scrollbar">
-              <p>>>> Handshake: TLS 1.3 Secure</p>
-              <p>>>> Region: auto-detect (Asia/Shanghai)</p>
-              <p>>>> Response: 200 OK (24ms)</p>
-              <p className="text-google-success animate-pulse">>>> NODE_SYNCHRONIZED_SUCCESSFULLY</p>
+              <p>{'>>>>'} Handshake: TLS 1.3 Secure</p>
+              <p>{'>>>>'} Region: auto-detect (Asia/Shanghai)</p>
+              <p>{'>>>>'} Response: 200 OK (24ms)</p>
+              <p className="text-google-success animate-pulse">{'>>>'} NODE_SYNCHRONIZED_SUCCESSFULLY</p>
             </div>
           </div>
         </div>

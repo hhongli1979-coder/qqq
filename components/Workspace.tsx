@@ -255,4 +255,31 @@ const Workspace: React.FC<WorkspaceProps> = ({
                      <div className="p-10">
                         <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/10 mb-6 italic">Quick Access Nodes</p>
                         <div className="grid grid-cols-2 gap-4">
-                           {Object.entries(SECTION_MAP).slice(1, 5).map(([id,
+                           {Object.entries(SECTION_MAP).slice(1, 5).map(([id, info]) => (
+                             <button 
+                               key={id}
+                               onClick={() => { onStepChange(id as SectionId); setShowSearch(false); setSearchQuery(''); }}
+                               className="w-full flex items-center justify-between p-6 hover:bg-white/5 rounded-2xl transition-all group"
+                             >
+                               <div className="flex items-center gap-6">
+                                 <div className="w-10 h-10 rounded-xl bg-luxury-gold/5 border border-luxury-gold/20 flex items-center justify-center text-luxury-gold group-hover:bg-luxury-gold group-hover:text-black transition-all">
+                                   <ArrowRight size={18} />
+                                 </div>
+                                 <span className="text-lg font-black italic uppercase text-white group-hover:text-luxury-gold transition-colors">{info.label}</span>
+                               </div>
+                               <span className="text-[9px] font-mono text-white/10 uppercase tracking-widest">Sector::{id}</span>
+                             </button>
+                           ))}
+                        </div>
+                     </div>
+                   )}
+                </div>
+             </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default Workspace;

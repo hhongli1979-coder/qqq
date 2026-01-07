@@ -71,12 +71,12 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ nodes }) =
 
         <LuxuryCard title="System_Integrity_Logs" icon={Layers} className="flex flex-col">
           <div className="flex-1 space-y-4 overflow-y-auto no-scrollbar font-mono text-[10px] text-white/20 italic">
-            <p className="flex items-center gap-3"><span className="text-luxury-gold">>>></span> [10:45:01] Neural Handshake: Verified</p>
-            <p className="flex items-center gap-3"><span className="text-luxury-gold">>>></span> [10:44:55] Encryption Rotation: AES-GCM</p>
-            <p className="flex items-center gap-3"><span className="text-luxury-gold">>>></span> [10:44:22] Cache Purge: 142MB Released</p>
-            <p className="flex items-center gap-3"><span className="text-luxury-gold">>>></span> [10:43:12] Gateway Audit: Status 200</p>
-            <p className="flex items-center gap-3"><span className="text-luxury-gold">>>></span> [10:42:01] Kernel Uplink: Node_Nexus</p>
-            <p className="flex items-center gap-3 text-google-success animate-pulse"><span className="text-google-success">>>></span> INTEGRITY_CHECK: ALL_SYSTEMS_GO</p>
+            <p className="flex items-center gap-3"><span className="text-luxury-gold">{'>>>'}</span> [10:45:01] Neural Handshake: Verified</p>
+            <p className="flex items-center gap-3"><span className="text-luxury-gold">{'>>>'}</span> [10:44:55] Encryption Rotation: AES-GCM</p>
+            <p className="flex items-center gap-3"><span className="text-luxury-gold">{'>>>'}</span> [10:44:22] Cache Purge: 142MB Released</p>
+            <p className="flex items-center gap-3"><span className="text-luxury-gold">{'>>>'}</span> [10:43:12] Gateway Audit: Status 200</p>
+            <p className="flex items-center gap-3"><span className="text-luxury-gold">{'>>>'}</span> [10:42:01] Kernel Uplink: Node_Nexus</p>
+            <p className="flex items-center gap-3 text-google-success animate-pulse"><span className="text-google-success">{'>>>'}</span> INTEGRITY_CHECK: ALL_SYSTEMS_GO</p>
           </div>
         </LuxuryCard>
       </div>

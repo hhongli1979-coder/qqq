@@ -125,12 +125,12 @@ export const Deployments: React.FC = () => {
                  </div>
               </LuxuryCard>
               <LuxuryCard title="Real-time Node Log" icon={Terminal} className="bg-black/80 !p-8 h-48">
-                 <div className="font-mono text-[9px] text-luxury-gold/30 space-y-2 overflow-y-auto no-scrollbar">
-                    <p>>>> Initializing session with {activeVendor.provider}...</p>
-                    <p>>>> Handshake complete: TLS_v1.3_PRIVATE</p>
-                    <p>>>> Latency validated: {activeVendor.latency}ms</p>
-                    <p className="text-google-success font-black">>>> READY_FOR_INFERENCE_ORCHESTRATION</p>
-                 </div>
+                  <div className="font-mono text-[9px] text-luxury-gold/30 space-y-2 overflow-y-auto no-scrollbar">
+                    <p>{'>>>>'} Initializing session with {activeVendor.provider}...</p>
+                    <p>{'>>>>'} Handshake complete: TLS_v1.3_PRIVATE</p>
+                    <p>{'>>>>'} Latency validated: {activeVendor.latency}ms</p>
+                    <p className="text-google-success font-black">{'>>>'} READY_FOR_INFERENCE_ORCHESTRATION</p>
+                  </div>
               </LuxuryCard>
             </div>
           </div>
