@@ -96,5 +96,99 @@ curl -X POST -H "Authorization: Bearer $VERCEL_TOKEN" \
 	"https://api.vercel.com/v10/domains/modamoda.club/verify"
 ```
 
+## 🚀 部署到 RunPod.io
+
+RunPod 是一个 GPU 云平台，支持从 GitHub 自动部署。本项目已配置好 Docker 部署文件。
+
+### 前置准备
+1. 注册 [RunPod.io](https://runpod.io) 账户
+2. 确保你的 GitHub 仓库包含以下文件（已配置）：
+   - `Dockerfile` - Docker 镜像构建配置
+   - `nginx.conf` - Nginx 服务器配置
+   - `.dockerignore` - Docker 构建优化
+
+### 自动部署步骤
+
+#### 1. 连接 GitHub 到 RunPod
+1. 登录 [RunPod Console](https://www.runpod.io/console)
+2. 进入 **Settings（设置）** → **Connections（连接）**
+3. 找到 **GitHub** 卡片，点击 **Connect（连接）**
+4. 授权 RunPod 访问你的仓库（可选择所有仓库或特定仓库）
+
+#### 2. 创建部署端点
+1. 进入 **Serverless（无服务器）** 部分
+2. 点击 **New Endpoint（新建端点）**
+3. 选择 **Import Git Repository（导入 Git 仓库）**
+4. 选择 `hhongli1979-coder/qqq` 仓库
+5. 选择要部署的分支（推荐 `main` 或 `master`）
+6. RunPod 会自动检测 Dockerfile
+
+#### 3. 配置端点
+- **端点名称**: 例如 `moda-ai-studio`
+- **端点类型**: 选择 **Load Balancer** 或 **Queue**（HTTP 访问选 Load Balancer）
+- **容器配置**:
+  - 端口映射：`80` (容器) → 外部端口
+  - 环境变量（可选）：
+    ```
+    GEMINI_API_KEY=你的密钥
+    OPENAI_API_KEY=你的密钥（可选）
+    ```
+- **资源配置**: 根据需要选择 CPU/GPU 配置（基础 Web 应用选 CPU 即可）
+- **Worker 数量**: 建议从 1 开始
+
+#### 4. 部署
+1. 点击 **Deploy Endpoint（部署端点）**
+2. RunPod 会自动：
+   - 克隆你的 GitHub 仓库
+   - 构建 Docker 镜像
+   - 部署容器
+   - 提供访问 URL
+
+#### 5. 监控和更新
+- 在 **Builds（构建）** 标签查看构建状态
+- 推送代码到选定分支会触发自动重新部署
+- 在端点详情页获取访问 URL
+
+### GitHub Actions 自动测试
+项目已配置 GitHub Actions 工作流（`.github/workflows/runpod-build.yml`）：
+- 每次推送到 `main`/`master` 分支时自动构建和测试 Docker 镜像
+- 验证镜像可以正常启动和响应
+- 确保部署配置始终有效
+
+### 本地测试 Docker 部署
+在部署到 RunPod 之前，可以本地测试：
+
+```bash
+# 构建镜像
+docker build -t moda-ai-studio .
+
+# 运行容器
+docker run -d -p 8080:80 --name moda-test moda-ai-studio
+
+# 访问 http://localhost:8080 测试
+
+# 停止并删除容器
+docker stop moda-test
+docker rm moda-test
+```
+
+### 环境变量配置
+如需在 RunPod 中使用 API 密钥：
+1. 在端点配置中添加环境变量
+2. 或在 Dockerfile 中使用 ARG/ENV（不推荐，会暴露密钥）
+3. 推荐：使用 RunPod 的环境变量功能（在部署时设置）
+
+### 费用说明
+- RunPod 按使用时间计费
+- CPU 实例费用较低，适合 Web 应用
+- GPU 实例费用较高，仅在需要时使用
+- 可设置自动缩放和暂停规则以节省费用
+
+### 故障排查
+- **构建失败**: 检查 Builds 标签的日志
+- **容器无法启动**: 确保端口配置正确（80）
+- **无法访问**: 检查端点类型是否选择了 Load Balancer
+- **API 密钥问题**: 在环境变量中配置或使用浏览器端输入
+
 ---
 *Powered by Google Gemini & Moda Labs.*
