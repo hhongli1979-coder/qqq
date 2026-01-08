@@ -20,14 +20,15 @@ async function main() {
   let out = '';
   if (Array.isArray(res.output)) {
     for (const item of res.output) {
-      if (item.content) {
-        for (const c of item.content) {
+      // Use type assertion to handle dynamic response structure
+      if ((item as any).content) {
+        for (const c of (item as any).content) {
           if (c.type === 'output_text' && typeof c.text === 'string') out += c.text;
         }
       }
     }
-  } else if (res.output?.[0]?.content?.[0]?.text) {
-    out = res.output[0].content[0].text;
+  } else if ((res as any).output?.[0]?.content?.[0]?.text) {
+    out = (res as any).output[0].content[0].text;
   }
 
   console.log(out.trim());
