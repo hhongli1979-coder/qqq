@@ -36,8 +36,19 @@ jobs:
       - name: Test Docker image
         run: |
           docker run -d -p 8080:80 --name test-container moda-ai-studio:latest
-          sleep 5
-          curl -f http://localhost:8080 || exit 1
+          echo "Waiting for container to be ready..."
+          for i in {1..30}; do
+            if curl -f http://localhost:8080 > /dev/null 2>&1; then
+              echo "Container is ready!"
+              break
+            fi
+            if [ $i -eq 30 ]; then
+              echo "Container failed to start within 30 seconds"
+              docker logs test-container
+              exit 1
+            fi
+            sleep 1
+          done
           docker stop test-container
           docker rm test-container
 

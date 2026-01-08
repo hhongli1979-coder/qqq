@@ -40,6 +40,6 @@ tmp
 temp
 demo
 
-# Documentation
-README.md
+# Documentation (keep README.md, exclude others)
 *.md
+!README.md
