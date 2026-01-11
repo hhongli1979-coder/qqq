@@ -1,6 +1,22 @@
 import 'dotenv/config';
 import OpenAI from 'openai';
 
+// Type definitions for dynamic response structure
+interface ContentItem {
+  type: string;
+  text?: string;
+}
+
+interface ResponseItem {
+  content?: ContentItem[];
+}
+
+interface ExtendedResponse {
+  output?: ResponseItem[];
+  usage?: any;
+  finish_reason?: string;
+}
+
 async function main() {
   const key = process.env.AI_GATEWAY_API_KEY || process.env.OPENAI_API_KEY;
   if (!key) {
@@ -18,16 +34,20 @@ async function main() {
 
   // Collect text from response outputs
   let out = '';
+  const extendedRes = res as unknown as ExtendedResponse;
+  
   if (Array.isArray(res.output)) {
     for (const item of res.output) {
-      if (item.content) {
-        for (const c of item.content) {
+      // Cast to our type definition
+      const typedItem = item as unknown as ResponseItem;
+      if (typedItem.content) {
+        for (const c of typedItem.content) {
           if (c.type === 'output_text' && typeof c.text === 'string') out += c.text;
         }
       }
     }
-  } else if (res.output?.[0]?.content?.[0]?.text) {
-    out = res.output[0].content[0].text;
+  } else if (extendedRes.output?.[0]?.content?.[0]?.text) {
+    out = extendedRes.output[0].content[0].text;
   }
 
   console.log(out.trim());
@@ -35,8 +55,8 @@ async function main() {
   try {
     // new SDK may include token usage under `usage` or `meta`
     // we print whatever we find for debugging
-    if ((res as any).usage) console.log('Token usage:', (res as any).usage);
-    if ((res as any).finish_reason) console.log('Finish reason:', (res as any).finish_reason);
+    if (extendedRes.usage) console.log('Token usage:', extendedRes.usage);
+    if (extendedRes.finish_reason) console.log('Finish reason:', extendedRes.finish_reason);
   } catch (e) {
     // ignore
   }
