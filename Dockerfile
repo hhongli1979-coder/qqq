@@ -22,22 +22,20 @@ FROM python:3.11-alpine
 # Set working directory
 WORKDIR /app
 
-# Install runtime dependencies
+# Install runtime dependencies (only system tools, Python is already in the base image)
 RUN apk add --no-cache \
-    python3 \
-    py3-pip \
     curl \
     bash
 
-# Copy built assets from builder
-COPY --from=builder /app/dist ./dist
-
-# Copy Python handler and requirements
+# Copy Python handler and requirements first to leverage Docker cache
 COPY handler.py .
 COPY requirements.txt .
 
-# Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Install Python dependencies using the built-in pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy built assets from builder
+COPY --from=builder /app/dist ./dist
 
 # Expose port
 EXPOSE 8000
@@ -47,4 +45,4 @@ ENV HTTP_PORT=8000
 ENV NODE_ENV=production
 
 # Start the handler
-CMD ["python3", "handler.py"]
+CMD ["python", "handler.py"]
