@@ -1,0 +1,2 @@
+# Python dependencies for Runpod Serverless
+runpod>=1.0.0
